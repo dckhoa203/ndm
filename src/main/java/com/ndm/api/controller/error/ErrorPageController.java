@@ -13,8 +13,8 @@ public class ErrorPageController {
     @RequestMapping("/404")
     public Error pathNotFound() {
         return Error.builder()
-                       .code(HttpStatus.NOT_FOUND.value())
-                       .message(PATH_NOT_FOUND)
-                       .build();
+                    .code(HttpStatus.NOT_FOUND.value())
+                    .message(PATH_NOT_FOUND)
+                    .build();
     }
 }

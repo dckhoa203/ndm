@@ -2,6 +2,7 @@ package com.ndm.api.controller;
 
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.config.ApiPathConfig;
+import com.ndm.api.dto.CredentialDeleteRequest;
 import com.ndm.api.dto.CredentialRequestBody;
 import com.ndm.api.dto.CredentialsResponse;
 import com.ndm.api.dto.Success;
@@ -48,6 +49,16 @@ public class CredentialController {
                                                 .build();
         credentialService.add(credential);
         return new Success(HttpStatus.OK.value(), String.format(ConstantCommon.ADD_SUCCESSFULLY, "credential"));
+    }
+
+    @DeleteMapping(ApiPathConfig.DELETE_CREDENTIAL_URL )
+    private Success delete(@Valid final CredentialDeleteRequest request,
+                           final BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParameterException(getErrorMessage(bindingResult));
+        }
+        credentialService.delete(Integer.parseInt(request.getId()));
+        return new Success(HttpStatus.OK.value(), ConstantCommon.DELETE_SUCCESSFULLY);
     }
 
     private String getErrorMessage(final BindingResult bindingResult) {
