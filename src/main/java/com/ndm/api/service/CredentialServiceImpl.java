@@ -2,12 +2,16 @@ package com.ndm.api.service;
 
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.entity.Credential;
+import com.ndm.api.exception.DataNotFoundException;
 import com.ndm.api.exception.DuplicateException;
 import com.ndm.api.repository.CredentialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
+import static com.ndm.api.common.ConstantCommon.CREDENTIAL_NOT_FOUND;
 
 @Service
 public class CredentialServiceImpl implements CredentialService {
@@ -39,6 +43,9 @@ public class CredentialServiceImpl implements CredentialService {
 
     @Override
     public void delete(final int id) {
-        credentialRepository.deleteById(id);
+        Optional<Credential> optionalCredential = credentialRepository.findCredentialById(id);
+        Credential credential = optionalCredential.orElseThrow(() -> new DataNotFoundException(CREDENTIAL_NOT_FOUND));
+        credential.setDeleted(true);
+        credentialRepository.save(credential);
     }
 }

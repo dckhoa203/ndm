@@ -10,6 +10,7 @@ public class ConstantCommon {
     public static final String DELETE_SUCCESSFULLY = "Delete successfully.";
 
     // ERROR
-    public static final String DUPLICATE_NAME = "Duplicate name %s";
-    public static final String DUPLICATE_USERNAME = "Duplicate username %s";
+    public static final String DUPLICATE_NAME = "Duplicate name %s.";
+    public static final String DUPLICATE_USERNAME = "Duplicate username %s.";
+    public static final String CREDENTIAL_NOT_FOUND = "Credential not found.";
 }

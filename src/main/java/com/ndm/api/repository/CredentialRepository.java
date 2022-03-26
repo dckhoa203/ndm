@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CredentialRepository extends JpaRepository<Credential, Integer> {
@@ -14,4 +15,5 @@ public interface CredentialRepository extends JpaRepository<Credential, Integer>
 
     boolean existsByName(final String name);
     boolean existsByUsername(final String username);
+    Optional<Credential> findCredentialById(final Integer id);
 }

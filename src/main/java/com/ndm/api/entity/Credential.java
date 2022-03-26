@@ -23,4 +23,10 @@ public class Credential {
 
     @Column(nullable = false)
     private String password;
+
+    private boolean isDeleted;
+
+    public boolean getDeleted() {
+        return isDeleted;
+    }
 }
