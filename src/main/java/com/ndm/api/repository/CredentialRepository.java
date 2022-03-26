@@ -11,4 +11,7 @@ import java.util.List;
 public interface CredentialRepository extends JpaRepository<Credential, Integer> {
     @Query("SELECT cr FROM Credential cr WHERE is_deleted =0")
     List<Credential> getAll();
+
+    boolean existsByName(final String name);
+    boolean existsByUsername(final String username);
 }

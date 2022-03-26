@@ -6,4 +6,5 @@ public class ApiPathConfig {
     }
 
     public static final String GET_ALL_CREDENTIAL_URL = "v1/credentials";
+    public static final String ADD_CREDENTIAL_URL = "v1/credential";
 }

@@ -2,6 +2,7 @@ package com.ndm.api.controller.error;
 
 import com.ndm.api.dto.Error;
 import com.ndm.api.exception.DataNotFoundException;
+import com.ndm.api.exception.DuplicateException;
 import com.ndm.api.exception.InvalidParameterException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -22,9 +23,9 @@ public class ErrorExceptionHandler {
     @ResponseBody
     public Error handlerMethodNotAllowedException() {
         return Error.builder()
-                       .code(HttpStatus.NOT_FOUND.value())
-                       .message(PATH_NOT_FOUND)
-                       .build();
+                    .code(HttpStatus.NOT_FOUND.value())
+                    .message(PATH_NOT_FOUND)
+                    .build();
     }
 
     @ExceptionHandler(DataAccessException.class)
@@ -32,9 +33,9 @@ public class ErrorExceptionHandler {
     @ResponseBody
     public Error handlerDataAccessException() {
         return Error.builder()
-                       .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                       .message(CONNECT_ERROR_MESSAGE)
-                       .build();
+                    .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message(CONNECT_ERROR_MESSAGE)
+                    .build();
     }
 
     @ExceptionHandler(InvalidParameterException.class)
@@ -42,9 +43,9 @@ public class ErrorExceptionHandler {
     @ResponseBody
     public Error handlerInvalidParameterException(final InvalidParameterException ex) {
         return Error.builder()
-                       .code(HttpStatus.BAD_REQUEST.value())
-                       .message(ex.getMessage())
-                       .build();
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .message(ex.getMessage())
+                    .build();
     }
 
     @ExceptionHandler(DataNotFoundException.class)
@@ -52,9 +53,19 @@ public class ErrorExceptionHandler {
     @ResponseBody
     public Error handlerDataNotFoundException(final DataNotFoundException ex) {
         return Error.builder()
-                       .code(HttpStatus.NOT_FOUND.value())
-                       .message(ex.getMessage())
-                       .build();
+                    .code(HttpStatus.NOT_FOUND.value())
+                    .message(ex.getMessage())
+                    .build();
+    }
+
+    @ExceptionHandler(DuplicateException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public Error handlerDuplicateException(final DuplicateException ex) {
+        return Error.builder()
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .message(ex.getMessage())
+                    .build();
     }
 
     @ExceptionHandler(Exception.class)
@@ -62,8 +73,8 @@ public class ErrorExceptionHandler {
     @ResponseBody
     public Error handlerException() {
         return Error.builder()
-                       .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                       .message(SERVER_ERROR_MESSAGE)
-                       .build();
+                    .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message(SERVER_ERROR_MESSAGE)
+                    .build();
     }
 }

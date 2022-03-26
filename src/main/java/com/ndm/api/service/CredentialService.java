@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CredentialService {
     List<Credential> getAll();
+    void add(final Credential credential);
 }
