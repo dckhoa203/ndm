@@ -39,9 +39,9 @@ After the build is completed. Look for the class *ApiApplication.java* and start
 By default, the application will run on port 8080.\
 Look for the class *ApiPathConfig.java*, this class contains all the api endpoints.\
 Example: [GET] http://localhost:8080/v1/credentials
-    
-   .
-   └───src
+
+.
+└───src
     ├───main
     │   ├───java
     │   │   └───com
@@ -50,4 +50,4 @@ Example: [GET] http://localhost:8080/v1/credentials
     │   │               │   ApiApplication.java
     │   │               ├───config
     │   │               │       ApiPathConfig.java
-    
+
