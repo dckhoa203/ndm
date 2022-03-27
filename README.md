@@ -1,6 +1,6 @@
 # ndm
 This is a project to manage network devices.\
-Technicals: Java Spring Boot + MySQL.
+Technicals: [Java Spring Boot](https://spring.io/projects/spring-boot) + [MySQL](https://www.mysql.com/).
 
 ## System architecture:
 ![image](https://user-images.githubusercontent.com/43290383/160295589-bae7ce70-4ace-4db2-9210-9096ee8e96f7.png)
