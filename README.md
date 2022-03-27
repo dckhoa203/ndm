@@ -40,14 +40,13 @@ By default, the application will run on port 8080.\
 Look for the class *ApiPathConfig.java*, this class contains all the api endpoints.\
 Example: [GET] http://localhost:8080/v1/credentials
 
-.
-└───src
-    ├───main
-    │   ├───java
-    │   │   └───com
-    │   │       └───ndm
-    │   │           └───api
-    │   │               │   ApiApplication.java
-    │   │               ├───config
-    │   │               │       ApiPathConfig.java
-
+    .
+    └───src
+        ├───main
+        │   ├───java
+        │   │   └───com
+        │   │       └───ndm
+        │   │           └───api
+        │   │               │   ApiApplication.java
+        │   │               ├───config
+        │   │               │       ApiPathConfig.java
