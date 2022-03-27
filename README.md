@@ -12,7 +12,7 @@ This is a project to manage network devices.
     ├───.mvn                                        # Maven
     ├───database                                    # Database script file
     └───src
-        ├───main                                    # contains the main source code
+        ├───main                                    # Contains the main source code
         │   ├───java
         │   │   └───com
         │   │       └───ndm
@@ -21,7 +21,7 @@ This is a project to manage network devices.
         │   │               ├───config              # Contains config files
         │   │               ├───controller          # Presentation Layer
         │   │               │   └───error           # Presentation class for custom errors
-        │   │               ├───dto
+        │   │               ├───dto                 # Data transfer object
         │   │               ├───entity              # Entity model
         │   │               ├───exception           # Contains custom exceptions
         │   │               ├───repository          # Data Access Layer
