@@ -1,6 +1,8 @@
 # ndm
 This is a project to manage network devices.
 
+## System architecture:
+![image](https://user-images.githubusercontent.com/43290383/160295589-bae7ce70-4ace-4db2-9210-9096ee8e96f7.png)
 ## Source code structure:
     .
     │   .gitignore
@@ -30,3 +32,4 @@ This is a project to manage network devices.
         │   │                   └───validator
         │   └───resources                    
         └───test                                    # Contains test source code
+## Run:
