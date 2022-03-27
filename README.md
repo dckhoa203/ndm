@@ -36,6 +36,7 @@ Technicals: [Java Spring Boot](https://spring.io/projects/spring-boot) + [MySQL]
 ## LDM. Model:
 ## Run:
 After the build is completed. Look for the class *ApiApplication.java* and start to run.\
+
     .
     └───src
     ├───main
@@ -46,6 +47,7 @@ After the build is completed. Look for the class *ApiApplication.java* and start
     │   │               │   ApiApplication.java
     
 Look for the class *ApiPathConfig.java*, this class contains all the api endpoints.\
+
     .
     └───src
     ├───main
