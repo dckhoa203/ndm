@@ -22,13 +22,13 @@ Technicals: [Java Spring Boot](https://spring.io/projects/spring-boot) + [MySQL]
         │   │           └───api
         │   │               ├───common              # Contains shared files
         │   │               ├───config              # Contains config files
-        │   │               ├───controller          # Presentation Layer
-        │   │               │   └───error           # Presentation class for custom errors
+        │   │               ├───controller          # Presentation layer
+        │   │               │   └───error           # Presentation layer for custom errors
         │   │               ├───dto                 # Data transfer object
         │   │               ├───entity              # Entity model
         │   │               ├───exception           # Contains custom exceptions
-        │   │               ├───repository          # Data Access Layer
-        │   │               ├───service             # Business Logic Layer
+        │   │               ├───repository          # Data Access layer
+        │   │               ├───service             # Business logic layer
         │   │               └───validation          # Contains custom validations       
         │   │                   └───validator
         │   └───resources                    
