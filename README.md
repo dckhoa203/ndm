@@ -1,5 +1,6 @@
 # ndm
 This is a project to manage network devices.
+Technicals: Java Spring Boot + MySQL.
 
 ## System architecture:
 ![image](https://user-images.githubusercontent.com/43290383/160295589-bae7ce70-4ace-4db2-9210-9096ee8e96f7.png)
@@ -32,4 +33,5 @@ This is a project to manage network devices.
         │   │                   └───validator
         │   └───resources                    
         └───test                                    # Contains test source code
+## LDM. Model:
 ## Run:
