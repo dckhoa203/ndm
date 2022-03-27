@@ -1,5 +1,5 @@
 # ndm
-This is a project to manage network devices.
+This is a project to manage network devices.\
 Technicals: Java Spring Boot + MySQL.
 
 ## System architecture:
