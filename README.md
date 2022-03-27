@@ -37,25 +37,17 @@ Technicals: [Java Spring Boot](https://spring.io/projects/spring-boot) + [MySQL]
 ## Run:
 After the build is completed. Look for the class *ApiApplication.java* and start to run.\
 By default, the application will run on port 8080.\
+Look for the class *ApiPathConfig.java*, this class contains all the api endpoints.\
 Example: [GET] http://localhost:8080/v1/credentials
-
-    .
-    └───src
+    
+   .
+   └───src
     ├───main
     │   ├───java
     │   │   └───com
     │   │       └───ndm
     │   │           └───api
     │   │               │   ApiApplication.java
-    
-Look for the class *ApiPathConfig.java*, this class contains all the api endpoints.
-
-    .
-    └───src
-    ├───main
-    │   ├───java
-    │   │   └───com
-    │   │       └───ndm
-    │   │           └───api
     │   │               ├───config
     │   │               │       ApiPathConfig.java
+    
