@@ -3,35 +3,30 @@ This is a project to manage network devices.
 
 ## Source code structure:
     .
-    ├───.mvn
-    │   └───wrapper
-    ├───database
+    │   .gitignore
+    │   HELP.md
+    │   mvnw
+    │   mvnw.cmd
+    │   pom.xml
+    │   README.md
+    ├───.mvn                                        # Maven
+    ├───database                                    # Database script file
     └───src
-        ├───main
+        ├───main                                    # contains the main source code
         │   ├───java
         │   │   └───com
         │   │       └───ndm
         │   │           └───api
-        │   │               ├───common
-        │   │               ├───config
-        │   │               ├───controller
-        │   │               │   └───error
+        │   │               ├───common              # Contains shared files
+        │   │               ├───config              # Contains config files
+        │   │               ├───controller          # Presentation Layer
+        │   │               │   └───error           # Presentation class for custom errors
         │   │               ├───dto
-        │   │               ├───entity
-        │   │               ├───exception
-        │   │               ├───repository
-        │   │               ├───service
-        │   │               └───validation
+        │   │               ├───entity              # Entity model
+        │   │               ├───exception           # Contains custom exceptions
+        │   │               ├───repository          # Data Access Layer
+        │   │               ├───service             # Business Logic Layer
+        │   │               └───validation          # Contains custom validations       
         │   │                   └───validator
-        │   └───resources
-        │       ├───static
-        │       └───templates
-        └───test
-
-    .
-    ├── database                # database script file
-    ├── src                     # Source files (alternatively `lib` or `app`)
-    ├── test                    # Automated tests (alternatively `spec` or `tests`)
-    ├── tools                   # Tools and utilities
-    ├── LICENSE
-    └── README.md
+        │   └───resources                    
+        └───test                                    # Contains test source code
