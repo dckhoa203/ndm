@@ -1,5 +1,6 @@
 package com.ndm.api.controller.error;
 
+import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.dto.Error;
 import com.ndm.api.exception.DataNotFoundException;
 import com.ndm.api.exception.DuplicateException;
@@ -14,9 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
 public class ErrorExceptionHandler {
-    private static final String CONNECT_ERROR_MESSAGE = "Connection Refused: Connect";
-    private static final String PATH_NOT_FOUND = "End Point Not Found";
-    private static final String SERVER_ERROR_MESSAGE = "Internal Server Error";
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(value = HttpStatus.METHOD_NOT_ALLOWED)
@@ -24,7 +22,7 @@ public class ErrorExceptionHandler {
     public Error handlerMethodNotAllowedException() {
         return Error.builder()
                     .code(HttpStatus.NOT_FOUND.value())
-                    .message(PATH_NOT_FOUND)
+                    .message(ConstantCommon.PATH_NOT_FOUND)
                     .build();
     }
 
@@ -34,7 +32,7 @@ public class ErrorExceptionHandler {
     public Error handlerDataAccessException() {
         return Error.builder()
                     .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                    .message(CONNECT_ERROR_MESSAGE)
+                    .message(ConstantCommon.CONNECT_ERROR_MESSAGE)
                     .build();
     }
 
@@ -74,7 +72,7 @@ public class ErrorExceptionHandler {
     public Error handlerException() {
         return Error.builder()
                     .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                    .message(SERVER_ERROR_MESSAGE)
+                    .message(ConstantCommon.SERVER_ERROR_MESSAGE)
                     .build();
     }
 }

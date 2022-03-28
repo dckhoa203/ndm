@@ -31,8 +31,7 @@ CREATE TABLE `credential` (
   `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -53,8 +52,7 @@ CREATE TABLE `device` (
   `is_operational` tinyint(1) NOT NULL DEFAULT 0,
   `is_resync` tinyint(1) NOT NULL DEFAULT 0,
   `type` int(11) NOT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -71,8 +69,7 @@ CREATE TABLE `interface` (
   `ip_address` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `netmask` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `gateway` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `info` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+  `info` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -86,8 +83,7 @@ CREATE TABLE `npt_server` (
   `ntp_id` int(11) NOT NULL,
   `clock_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ip_address` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `state` tinyint(1) NOT NULL DEFAULT 0,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+  `state` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -104,8 +100,7 @@ CREATE TABLE `ntp` (
   `vlan_priority` int(11) NOT NULL,
   `sync_status` tinyint(1) NOT NULL DEFAULT 0,
   `time_interval` int(11) NOT NULL,
-  `number_messages` int(11) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+  `number_messages` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -123,8 +118,7 @@ CREATE TABLE `port` (
   `speed` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mtu` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mdi` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mac_address` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+  `mac_address` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --

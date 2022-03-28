@@ -6,7 +6,6 @@ import com.ndm.api.dto.CredentialRequest;
 import com.ndm.api.dto.CredentialRequestBody;
 import com.ndm.api.dto.CredentialsResponse;
 import com.ndm.api.dto.Success;
-import com.ndm.api.entity.Credential;
 import com.ndm.api.exception.InvalidParameterException;
 import com.ndm.api.service.CredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,26 +35,18 @@ public class CredentialController {
     }
 
     @PostMapping(ApiPathConfig.ADD_CREDENTIAL_URL)
-    public Success add(@Valid @RequestBody final CredentialRequestBody request,
-                       final BindingResult bindingResult) {
+    public Success add(@Valid @RequestBody final CredentialRequestBody request, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InvalidParameterException(getErrorMessage(bindingResult));
         }
 
-        final Credential credential = Credential.builder()
-                                                .name(request.getName())
-                                                .username(request.getUsername())
-                                                .password(request.getPassword())
-                                                .build();
-        credentialService.add(credential);
+        credentialService.add(request);
         return new Success(HttpStatus.OK.value(), String.format(ConstantCommon.ADD_SUCCESSFULLY, "credential"));
     }
 
     @PutMapping(ApiPathConfig.UPDATE_CREDENTIAL_URL)
-    public Success update(@Valid final CredentialRequest request,
-                          final BindingResult bindingResultRequest,
-                          @Valid @RequestBody final CredentialRequestBody requestBody,
-                          final BindingResult bindingResultRequestBody) {
+    public Success update(@Valid final CredentialRequest request, final BindingResult bindingResultRequest,
+                          @Valid @RequestBody final CredentialRequestBody requestBody, final BindingResult bindingResultRequestBody) {
         if (bindingResultRequest.hasErrors()) {
             throw new InvalidParameterException(getErrorMessage(bindingResultRequest));
         }
@@ -64,23 +55,17 @@ public class CredentialController {
             throw new InvalidParameterException(getErrorMessage(bindingResultRequestBody));
         }
 
-        Credential credential = Credential.builder()
-                                          .id(Integer.parseInt(request.getId()))
-                                          .name(requestBody.getName())
-                                          .username(requestBody.getUsername())
-                                          .password(requestBody.getPassword())
-                                          .build();
-
-        credentialService.update(credential);
+        credentialService.update(request, requestBody);
         return new Success(HttpStatus.OK.value(), String.format(ConstantCommon.UPDATE_SUCCESSFULLY, "credential"));
     }
 
     @DeleteMapping(ApiPathConfig.DELETE_CREDENTIAL_URL )
-    private Success delete(@Valid final CredentialRequest request,
+    public Success delete(@Valid final CredentialRequest request,
                            final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InvalidParameterException(getErrorMessage(bindingResult));
         }
+
         credentialService.delete(Integer.parseInt(request.getId()));
         return new Success(HttpStatus.OK.value(), ConstantCommon.DELETE_SUCCESSFULLY);
     }

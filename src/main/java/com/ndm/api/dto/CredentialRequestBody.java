@@ -19,19 +19,19 @@ public class CredentialRequestBody {
     private static final String PASSWORD_REQUIRED_MESSAGE = "Password is required";
     private static final String PASSWORD_LENGTH_INVALID_MESSAGE = "Password length must be less than 255";
 
-    private static final int nameLength = 100;
-    private static final int userNameLength = 100;
-    private static final int passwordLength = 100;
+    private static final int NAME_LENGTH = 100;
+    private static final int USERNAME_LENGTH = 100;
+    private static final int PASSWORD_LENGTH = 255;
 
     @NotBlank(message = NAME_REQUIRED_MESSAGE)
-    @Length(max = nameLength, message = NAME_LENGTH_INVALID_MESSAGE)
+    @Length(max = NAME_LENGTH, message = NAME_LENGTH_INVALID_MESSAGE)
     private String name;
 
     @NotBlank(message = USERNAME_REQUIRED_MESSAGE)
-    @Length(max = userNameLength, message = USERNAME_LENGTH_INVALID_MESSAGE)
+    @Length(max = USERNAME_LENGTH, message = USERNAME_LENGTH_INVALID_MESSAGE)
     private String username;
 
     @NotBlank(message = PASSWORD_REQUIRED_MESSAGE)
-    @Length(max = passwordLength, message = PASSWORD_LENGTH_INVALID_MESSAGE)
+    @Length(max = PASSWORD_LENGTH, message = PASSWORD_LENGTH_INVALID_MESSAGE)
     private String password;
 }

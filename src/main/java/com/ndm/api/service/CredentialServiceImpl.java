@@ -1,15 +1,17 @@
 package com.ndm.api.service;
 
 import com.ndm.api.common.ConstantCommon;
+import com.ndm.api.dto.CredentialRequest;
+import com.ndm.api.dto.CredentialRequestBody;
 import com.ndm.api.entity.Credential;
 import com.ndm.api.exception.DataNotFoundException;
 import com.ndm.api.exception.DuplicateException;
 import com.ndm.api.repository.CredentialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.ndm.api.common.ConstantCommon.CREDENTIAL_NOT_FOUND;
 
@@ -25,11 +27,16 @@ public class CredentialServiceImpl implements CredentialService {
 
     @Override
     public List<Credential> getAll() {
-        return credentialRepository.getAll();
+        return credentialRepository.findAll();
     }
 
     @Override
-    public void add(final Credential credential) {
+    public void add(final CredentialRequestBody requestBody) {
+        final Credential credential = Credential.builder()
+                                                .name(requestBody.getName())
+                                                .username(requestBody.getUsername())
+                                                .password(requestBody.getPassword())
+                                                .build();
         if (credentialRepository.existsByName(credential.getName())) {
             throw new DuplicateException(String.format(ConstantCommon.DUPLICATE_NAME, credential.getName()));
         }
@@ -42,9 +49,17 @@ public class CredentialServiceImpl implements CredentialService {
     }
 
     @Override
-    public void update(final Credential credential) {
-        Optional<Credential> optionalCredential = credentialRepository.findCredentialById(credential.getId());
-        Credential newCredential = optionalCredential.orElseThrow(() -> new DataNotFoundException(CREDENTIAL_NOT_FOUND));
+    public void update(final CredentialRequest request, final CredentialRequestBody requestBody) {
+        final Credential credential = Credential.builder()
+                                                .id(Integer.parseInt(request.getId()))
+                                                .name(requestBody.getName())
+                                                .username(requestBody.getUsername())
+                                                .password(requestBody.getPassword())
+                                                .build();
+        Credential newCredential = credentialRepository.getById(credential.getId());
+        if (ObjectUtils.isEmpty(credential)) {
+            throw new DataNotFoundException(CREDENTIAL_NOT_FOUND);
+        }
 
         if (credentialRepository.existsByNameNotById(credential.getName(), credential.getId())) {
             throw new DuplicateException(String.format(ConstantCommon.DUPLICATE_NAME, credential.getName()));
@@ -62,9 +77,10 @@ public class CredentialServiceImpl implements CredentialService {
 
     @Override
     public void delete(final int id) {
-        Optional<Credential> optionalCredential = credentialRepository.findCredentialById(id);
-        Credential credential = optionalCredential.orElseThrow(() -> new DataNotFoundException(CREDENTIAL_NOT_FOUND));
-        credential.setDeleted(true);
-        credentialRepository.save(credential);
+        final Credential credential = credentialRepository.getById(id);
+        if (ObjectUtils.isEmpty(credential)) {
+            throw new DataNotFoundException(CREDENTIAL_NOT_FOUND);
+        }
+        credentialRepository.delete(credential);
     }
 }
