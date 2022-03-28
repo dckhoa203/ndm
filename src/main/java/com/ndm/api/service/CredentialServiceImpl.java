@@ -42,6 +42,25 @@ public class CredentialServiceImpl implements CredentialService {
     }
 
     @Override
+    public void update(final Credential credential) {
+        Optional<Credential> optionalCredential = credentialRepository.findCredentialById(credential.getId());
+        Credential newCredential = optionalCredential.orElseThrow(() -> new DataNotFoundException(CREDENTIAL_NOT_FOUND));
+
+        if (credentialRepository.existsByNameNotById(credential.getName(), credential.getId())) {
+            throw new DuplicateException(String.format(ConstantCommon.DUPLICATE_NAME, credential.getName()));
+        }
+
+        if (credentialRepository.existsByUsernameNotById(credential.getUsername(), credential.getId())) {
+            throw new DuplicateException(String.format(ConstantCommon.DUPLICATE_USERNAME, credential.getUsername()));
+        }
+
+        newCredential.setName(credential.getName());
+        newCredential.setUsername(credential.getUsername());
+        newCredential.setPassword(credential.getPassword());
+        credentialRepository.save(newCredential);
+    }
+
+    @Override
     public void delete(final int id) {
         Optional<Credential> optionalCredential = credentialRepository.findCredentialById(id);
         Credential credential = optionalCredential.orElseThrow(() -> new DataNotFoundException(CREDENTIAL_NOT_FOUND));

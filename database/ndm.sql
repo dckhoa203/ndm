@@ -84,7 +84,7 @@ CREATE TABLE `interface` (
 CREATE TABLE `npt_server` (
   `id` int(11) NOT NULL,
   `ntp_id` int(11) NOT NULL,
-  `clockname` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `clock_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ip_address` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `state` tinyint(1) NOT NULL DEFAULT 0,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0
@@ -98,12 +98,12 @@ CREATE TABLE `npt_server` (
 
 CREATE TABLE `ntp` (
   `id` int(11) NOT NULL,
-  `ntp_clien` tinyint(1) NOT NULL DEFAULT 0,
+  `ntp_client` tinyint(1) NOT NULL DEFAULT 0,
   `tai_offset` int(11) NOT NULL,
   `dscp` int(11) NOT NULL,
   `vlan_priority` int(11) NOT NULL,
   `sync_status` tinyint(1) NOT NULL DEFAULT 0,
-  `time_inerval` int(11) NOT NULL,
+  `time_interval` int(11) NOT NULL,
   `number_messages` int(11) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

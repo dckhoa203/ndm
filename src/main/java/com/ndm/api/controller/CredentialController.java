@@ -2,7 +2,7 @@ package com.ndm.api.controller;
 
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.config.ApiPathConfig;
-import com.ndm.api.dto.CredentialDeleteRequest;
+import com.ndm.api.dto.CredentialRequest;
 import com.ndm.api.dto.CredentialRequestBody;
 import com.ndm.api.dto.CredentialsResponse;
 import com.ndm.api.dto.Success;
@@ -51,8 +51,32 @@ public class CredentialController {
         return new Success(HttpStatus.OK.value(), String.format(ConstantCommon.ADD_SUCCESSFULLY, "credential"));
     }
 
+    @PutMapping(ApiPathConfig.UPDATE_CREDENTIAL_URL)
+    public Success update(@Valid final CredentialRequest request,
+                          final BindingResult bindingResultRequest,
+                          @Valid @RequestBody final CredentialRequestBody requestBody,
+                          final BindingResult bindingResultRequestBody) {
+        if (bindingResultRequest.hasErrors()) {
+            throw new InvalidParameterException(getErrorMessage(bindingResultRequest));
+        }
+
+        if (bindingResultRequestBody.hasErrors()) {
+            throw new InvalidParameterException(getErrorMessage(bindingResultRequestBody));
+        }
+
+        Credential credential = Credential.builder()
+                                          .id(Integer.parseInt(request.getId()))
+                                          .name(requestBody.getName())
+                                          .username(requestBody.getUsername())
+                                          .password(requestBody.getPassword())
+                                          .build();
+
+        credentialService.update(credential);
+        return new Success(HttpStatus.OK.value(), String.format(ConstantCommon.UPDATE_SUCCESSFULLY, "credential"));
+    }
+
     @DeleteMapping(ApiPathConfig.DELETE_CREDENTIAL_URL )
-    private Success delete(@Valid final CredentialDeleteRequest request,
+    private Success delete(@Valid final CredentialRequest request,
                            final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InvalidParameterException(getErrorMessage(bindingResult));

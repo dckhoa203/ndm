@@ -7,6 +7,7 @@ public class ConstantCommon {
 
     // MESSAGE
     public static final String ADD_SUCCESSFULLY = "Add %s successfully.";
+    public static final String UPDATE_SUCCESSFULLY = "Update %s successfully.";
     public static final String DELETE_SUCCESSFULLY = "Delete successfully.";
 
     // ERROR
