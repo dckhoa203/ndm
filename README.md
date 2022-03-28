@@ -3,7 +3,7 @@ This is a project to manage network devices.\
 Technicals: [Java Spring Boot](https://spring.io/projects/spring-boot) + [MySQL](https://www.mysql.com/).
 
 ## System architecture:
-![image](https://user-images.githubusercontent.com/43290383/160295589-bae7ce70-4ace-4db2-9210-9096ee8e96f7.png)
+![architecture](https://user-images.githubusercontent.com/43290383/160320084-2eceddb9-c9c7-4f54-8861-12c45415f961.png)
 ## Source code structure:
     .
     │   .gitignore
@@ -34,7 +34,7 @@ Technicals: [Java Spring Boot](https://spring.io/projects/spring-boot) + [MySQL]
         │   └───resources                    
         └───test                                    # Contains test source code
 ## LDM model:
-![LDM_edit](https://user-images.githubusercontent.com/43290383/160319972-48efb392-44bf-45f6-80fc-9f90529464ef.png)
+![LDM model](https://user-images.githubusercontent.com/43290383/160319972-48efb392-44bf-45f6-80fc-9f90529464ef.png)
 ## Run:
 After the build is completed, look for the class *ApiApplication.java* and start to run.\
 By default, the application will run on port 8080.\
