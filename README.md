@@ -33,7 +33,8 @@ Technicals: [Java Spring Boot](https://spring.io/projects/spring-boot) + [MySQL]
         │   │                   └───validator
         │   └───resources                    
         └───test                                    # Contains test source code
-## LDM. Model:
+## LDM model:
+![LDM_edit](https://user-images.githubusercontent.com/43290383/160319972-48efb392-44bf-45f6-80fc-9f90529464ef.png)
 ## Run:
 After the build is completed, look for the class *ApiApplication.java* and start to run.\
 By default, the application will run on port 8080.\
