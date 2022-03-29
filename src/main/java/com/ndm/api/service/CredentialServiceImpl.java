@@ -26,11 +26,19 @@ public class CredentialServiceImpl implements CredentialService {
         this.credentialRepository = credentialRepository;
     }
 
+    /**
+     * This is the method of get all credential
+     * @return List<Credential>
+     */
     @Override
     public List<Credential> getAll() {
         return credentialRepository.findAll();
     }
 
+    /**
+     * This is the method of adding a credential
+     * @param requestBody CredentialRequestBody
+     */
     @Override
     @Transactional
     public void add(final CredentialRequestBody requestBody) {
@@ -50,6 +58,11 @@ public class CredentialServiceImpl implements CredentialService {
         credentialRepository.save(credential);
     }
 
+    /**
+     * This is the method of updating a credential
+     * @param request CredentialRequest
+     * @param requestBody CredentialRequestBody
+     */
     @Override
     @Transactional
     public void update(final CredentialRequest request, final CredentialRequestBody requestBody) {
@@ -78,6 +91,11 @@ public class CredentialServiceImpl implements CredentialService {
         credentialRepository.save(newCredential);
     }
 
+    /**
+     * This is the method of removing a credential
+     * @param id int
+     * @throws DataNotFoundException if the credential is not found
+     */
     @Override
     @Transactional
     public void delete(final int id) {

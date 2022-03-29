@@ -10,6 +10,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * A class define annotation @NumberValidator
+ */
 @Documented
 @Constraint(validatedBy = NumberValidator.class)
 @Target(ElementType.FIELD)

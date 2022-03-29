@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * This is a Credential request class
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

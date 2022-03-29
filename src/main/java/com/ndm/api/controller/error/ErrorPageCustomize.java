@@ -9,6 +9,10 @@ import org.springframework.http.HttpStatus;
 @Configuration
 public class ErrorPageCustomize implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
 
+    /**
+     * This is a custom method for error page path not found
+     * @param factory ConfigurableServletWebServerFactory
+     */
     @Override
     public void customize(ConfigurableServletWebServerFactory factory) {
         factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404"));

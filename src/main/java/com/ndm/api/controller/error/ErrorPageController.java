@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ErrorPageController {
+    /**
+     * This is a method to catch path not found
+     * @return Error Object {404, "End Point Not Found."}
+     */
     @RequestMapping("/404")
     public Error pathNotFound() {
         return Error.builder()

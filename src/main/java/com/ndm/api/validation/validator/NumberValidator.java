@@ -6,6 +6,9 @@ import org.springframework.util.StringUtils;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * This is a number validator class
+ */
 public class NumberValidator implements ConstraintValidator<Number, String> {
 
     private static final int MIN_VALUE = 1;
@@ -17,6 +20,12 @@ public class NumberValidator implements ConstraintValidator<Number, String> {
         this.isNull = number.isNull();
     }
 
+    /**
+     * This is a method to check number
+     * @param number String
+     * @param context ConstraintValidatorContext
+     * @return boolean
+     */
     @Override
     public boolean isValid(String number, ConstraintValidatorContext context) {
         if (!StringUtils.hasText(number)) {

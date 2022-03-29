@@ -29,11 +29,22 @@ public class CredentialController {
         this.credentialService = credentialService;
     }
 
+    /**
+     * This is a method to get all credential
+     * @return CredentialsResponse Object
+     */
     @GetMapping(ApiPathConfig.GET_ALL_CREDENTIAL_URL)
     public CredentialsResponse getAll() {
         return new CredentialsResponse(credentialService.getAll());
     }
 
+    /**
+     * This is a method of adding credential
+     * @param request CredentialRequestBody
+     * @param bindingResult BindingResult
+     * @throws InvalidParameterException if invalid parameter
+     * @return Success Object {200, "message"}
+     */
     @PostMapping(ApiPathConfig.ADD_CREDENTIAL_URL)
     public Success add(@Valid @RequestBody final CredentialRequestBody request, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -44,6 +55,15 @@ public class CredentialController {
         return new Success(HttpStatus.OK.value(), String.format(ConstantCommon.ADD_SUCCESSFULLY, "credential"));
     }
 
+    /**
+     * This is a method of updating credential
+     * @param request CredentialRequest
+     * @param bindingResultRequest BindingResult
+     * @param requestBody CredentialRequestBody
+     * @param bindingResultRequestBody BindingResult
+     * @throws InvalidParameterException if invalid parameter
+     * @return Success Object {200, "message"}
+     */
     @PutMapping(ApiPathConfig.UPDATE_CREDENTIAL_URL)
     public Success update(@Valid final CredentialRequest request, final BindingResult bindingResultRequest,
                           @Valid @RequestBody final CredentialRequestBody requestBody, final BindingResult bindingResultRequestBody) {
@@ -59,6 +79,12 @@ public class CredentialController {
         return new Success(HttpStatus.OK.value(), String.format(ConstantCommon.UPDATE_SUCCESSFULLY, "credential"));
     }
 
+    /**
+     * This is a method of deleting credential
+     * @param request CredentialRequest
+     * @param bindingResult BindingResult
+     * @return Success Object {200, "message"}
+     */
     @DeleteMapping(ApiPathConfig.DELETE_CREDENTIAL_URL )
     public Success delete(@Valid final CredentialRequest request,
                            final BindingResult bindingResult) {
@@ -70,6 +96,11 @@ public class CredentialController {
         return new Success(HttpStatus.OK.value(), ConstantCommon.DELETE_SUCCESSFULLY);
     }
 
+    /**
+     * This a method get errors message from BindingResult
+     * @param bindingResult BindingResult
+     * @return message String
+     */
     private String getErrorMessage(final BindingResult bindingResult) {
         return bindingResult.getFieldErrors().stream()
                 .map(FieldError::getDefaultMessage)

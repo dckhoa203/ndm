@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This is the class that returns the credential list
+ */
 @NoArgsConstructor
 @Data
 public class CredentialsResponse {

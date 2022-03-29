@@ -7,6 +7,10 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 
+
+/**
+ * This is a Credential request body class
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
