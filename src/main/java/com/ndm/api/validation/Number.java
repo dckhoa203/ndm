@@ -1,6 +1,6 @@
 package com.ndm.api.validation;
 
-import com.ndm.api.validation.validator.CheckNumberValidator;
+import com.ndm.api.validation.validator.NumberValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -11,10 +11,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = CheckNumberValidator.class)
+@Constraint(validatedBy = NumberValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CheckNumber {
+public @interface Number {
     String message() default "";
 
     Class<?>[] groups() default {};

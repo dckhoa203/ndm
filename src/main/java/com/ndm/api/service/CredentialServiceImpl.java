@@ -9,6 +9,7 @@ import com.ndm.api.exception.DuplicateException;
 import com.ndm.api.repository.CredentialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class CredentialServiceImpl implements CredentialService {
     }
 
     @Override
+    @Transactional
     public void add(final CredentialRequestBody requestBody) {
         final Credential credential = Credential.builder()
                                                 .name(requestBody.getName())
@@ -49,6 +51,7 @@ public class CredentialServiceImpl implements CredentialService {
     }
 
     @Override
+    @Transactional
     public void update(final CredentialRequest request, final CredentialRequestBody requestBody) {
         final Credential credential = Credential.builder()
                                                 .id(Integer.parseInt(request.getId()))
@@ -76,6 +79,7 @@ public class CredentialServiceImpl implements CredentialService {
     }
 
     @Override
+    @Transactional
     public void delete(final int id) {
         final Credential credential = credentialRepository.getById(id);
         if (ObjectUtils.isEmpty(credential)) {

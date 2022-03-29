@@ -1,20 +1,20 @@
 package com.ndm.api.validation.validator;
 
-import com.ndm.api.validation.CheckNumber;
+import com.ndm.api.validation.Number;
 import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class CheckNumberValidator implements ConstraintValidator<CheckNumber, String> {
+public class NumberValidator implements ConstraintValidator<Number, String> {
 
     private static final int MIN_VALUE = 1;
 
     private boolean isNull;
 
     @Override
-    public void initialize(CheckNumber checkNumber) {
-        this.isNull = checkNumber.isNull();
+    public void initialize(Number number) {
+        this.isNull = number.isNull();
     }
 
     @Override

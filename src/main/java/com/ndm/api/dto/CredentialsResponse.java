@@ -27,13 +27,11 @@ public class CredentialsResponse {
         private int id;
         private String name;
         private String username;
-        private String password;
 
         public CredentialResponse(final Credential credential) {
             this.id = credential.getId();
             this.name = credential.getName();
             this.username = credential.getUsername();
-            this.password = credential.getPassword();
         }
     }
 }
