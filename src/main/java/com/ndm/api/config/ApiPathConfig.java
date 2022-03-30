@@ -12,4 +12,6 @@ public class ApiPathConfig {
     public static final String DELETE_CREDENTIAL_URL = VERSION + "credential/{id}";
 
     public static final String GET_NTP_BY_DEVICE_ID_URL = VERSION + "{deviceId}/ntp";
+
+    public static final String GET_ALL_DEVICE_URL = VERSION + "devices";
 }
