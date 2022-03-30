@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class DevicesResponse {
+public class DeviceListResponse {
 
     private List<DeviceResponse> results;
 

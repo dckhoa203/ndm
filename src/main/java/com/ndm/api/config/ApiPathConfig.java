@@ -14,4 +14,5 @@ public class ApiPathConfig {
     public static final String GET_NTP_BY_DEVICE_ID_URL = VERSION + "{deviceId}/ntp";
 
     public static final String GET_ALL_DEVICE_URL = VERSION + "devices";
+    public static final String GET_DEVICE_BY_ID_URL = VERSION + "device/{id}";
 }

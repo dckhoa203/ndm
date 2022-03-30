@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface DeviceService {
     List<Device> getAll();
+    Device findById(final int id);
 }

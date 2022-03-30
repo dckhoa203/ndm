@@ -8,14 +8,13 @@ import com.ndm.api.dto.NtpResponse;
 import com.ndm.api.entity.Ntp;
 import com.ndm.api.exception.InvalidParameterException;
 import com.ndm.api.service.NtpService;
+import com.ndm.api.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
+import org.springframework.validation.BindingResult;;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.stream.Collectors;
 
 @RestController
 public class NtpController {
@@ -32,15 +31,9 @@ public class NtpController {
     @GetMapping(ApiPathConfig.GET_NTP_BY_DEVICE_ID_URL)
     public NtpResponse getByDeviceId(@Valid final NtpGetByDeviceIdRequest request, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            throw new InvalidParameterException(getErrorMessage(bindingResult));
+            throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
         }
         final Ntp ntp = ntpService.getByDeviceId(Integer.parseInt(request.getDeviceId()));
         return dtoFactory.toNtpResponse(ntp);
-    }
-
-    private String getErrorMessage(final BindingResult bindingResult) {
-        return bindingResult.getFieldErrors().stream()
-                .map(FieldError::getDefaultMessage)
-                .collect(Collectors.joining(ConstantCommon.DELIMITER_CHARACTER));
     }
 }
