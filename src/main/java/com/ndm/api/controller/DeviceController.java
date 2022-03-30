@@ -24,7 +24,6 @@ public class DeviceController {
 
     @GetMapping(ApiPathConfig.GET_ALL_DEVICE_URL)
     public DevicesResponse getAll() {
-        List<Device> devices = deviceService.getAll();
         return dtoFactory.toDevicesResponse(deviceService.getAll());
     }
 }

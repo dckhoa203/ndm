@@ -2,6 +2,7 @@ package com.ndm.api.dto;
 
 import com.ndm.api.entity.Device;
 import com.ndm.api.entity.Ntp;
+import com.ndm.api.dto.DevicesResponse.DeviceResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,7 @@ public class DtoFactory {
     }
 
     public DevicesResponse toDevicesResponse(final List<Device> devices) {
-        final List<DevicesResponse.DeviceResponse> deviceResponses = devices.stream().map(device -> modelMapper.map(device, DevicesResponse.DeviceResponse.class)).collect(Collectors.toList());
+        final List<DeviceResponse> deviceResponses = devices.stream().map(device -> modelMapper.map(device, DeviceResponse.class)).collect(Collectors.toList());
         return new DevicesResponse(deviceResponses);
     }
 }
