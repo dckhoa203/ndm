@@ -3,7 +3,6 @@ package com.ndm.api.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -11,21 +10,22 @@ import java.util.Set;
 @Setter
 @Builder
 @Entity
-public class Credential {
+public class Port {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(length = 100, nullable = false, unique = true)
     private String name;
+    private String connector;
 
-    @Column(length = 100, nullable = false, unique = true)
-    private String username;
+    @Column(columnDefinition = "boolean default false")
+    private boolean state;
+    private String speed;
 
-    @Column(nullable = false)
-    private String password;
+    private String mtu;
+    private String mdi;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "credential_id")
-    private Set<Device> devices;
+    @Column(length = 20, nullable = false, unique = true)
+    private String macAddress;
 }

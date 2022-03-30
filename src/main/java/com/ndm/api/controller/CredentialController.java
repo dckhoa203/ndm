@@ -20,8 +20,6 @@ import java.util.stream.Collectors;
 @RestController
 public class CredentialController {
 
-    private static final String DELIMITER_CHARACTER = ", ";
-
     private final CredentialService credentialService;
 
     @Autowired
@@ -104,6 +102,6 @@ public class CredentialController {
     private String getErrorMessage(final BindingResult bindingResult) {
         return bindingResult.getFieldErrors().stream()
                 .map(FieldError::getDefaultMessage)
-                .collect(Collectors.joining(DELIMITER_CHARACTER));
+                .collect(Collectors.joining(ConstantCommon.DELIMITER_CHARACTER));
     }
 }

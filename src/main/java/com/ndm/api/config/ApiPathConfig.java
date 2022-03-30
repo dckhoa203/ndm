@@ -10,4 +10,6 @@ public class ApiPathConfig {
     public static final String ADD_CREDENTIAL_URL = VERSION + "credential";
     public static final String UPDATE_CREDENTIAL_URL = VERSION + "credential/{id}";
     public static final String DELETE_CREDENTIAL_URL = VERSION + "credential/{id}";
+
+    public static final String GET_NTP_BY_DEVICE_ID_URL = VERSION + "{deviceId}/ntp";
 }
