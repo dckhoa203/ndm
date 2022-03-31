@@ -30,4 +30,10 @@ public class DeviceServiceImpl implements DeviceService{
         final Optional<Device> deviceOptional = deviceRepository.findById(id);
         return deviceOptional.orElseThrow(() -> new DataNotFoundException((ConstantCommon.DEVICE_NOT_FOUND)));
     }
+
+    @Override
+    public Device getByIpAddress(final String ipAddress) {
+        Device device = deviceRepository.getByIpAddress(ipAddress);
+        return deviceRepository.getByIpAddress(ipAddress);
+    }
 }

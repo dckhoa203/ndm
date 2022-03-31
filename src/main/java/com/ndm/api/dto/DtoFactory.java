@@ -6,6 +6,7 @@ import com.ndm.api.dto.DeviceListResponse.DeviceResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +31,9 @@ public class DtoFactory {
     }
 
     public DeviceResponse toDeviceResponse(final Device device) {
+        if (ObjectUtils.isEmpty(device)) {
+            return new DeviceResponse();
+        }
         return modelMapper.map(device, DeviceResponse.class);
     }
 }
