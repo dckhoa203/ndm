@@ -11,10 +11,7 @@ import com.ndm.api.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -69,5 +66,14 @@ public class DeviceController {
         }
         deviceService.add(requestBody);
         return new Success(HttpStatus.OK.value(), String.format(ConstantCommon.ADD_SUCCESSFULLY, "device"));
+    }
+
+    @DeleteMapping(ApiPathConfig.DELETE_DEVICE_URL)
+    public Success delete(@Valid final DeviceRequest request, final BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
+        }
+        deviceService.delete(Integer.parseInt(request.getId()));
+        return new Success(HttpStatus.OK.value(), ConstantCommon.DELETE_SUCCESSFULLY);
     }
 }

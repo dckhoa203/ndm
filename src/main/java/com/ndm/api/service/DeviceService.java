@@ -11,4 +11,5 @@ public interface DeviceService {
     Device getByIpAddress(final String ipAddress);
     List<Device> getByType(final int type);
     void add(final DeviceAddRequestBody requestBody);
+    void delete(final int id);
 }

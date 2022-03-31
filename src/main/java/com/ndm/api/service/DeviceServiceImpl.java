@@ -54,6 +54,13 @@ public class DeviceServiceImpl implements DeviceService{
         deviceRepository.save(device);
     }
 
+    @Override
+    public void delete(final int id) {
+        final Optional<Device> deviceOptional = deviceRepository.findById(id);
+        final Device device = deviceOptional.orElseThrow(()-> new DataNotFoundException(ConstantCommon.DEVICE_NOT_FOUND));
+        deviceRepository.delete(device);
+    }
+
     private Device toDevice(final DeviceAddRequestBody requestBody) {
         if (ObjectUtils.isEmpty(requestBody)) {
             return new Device();
