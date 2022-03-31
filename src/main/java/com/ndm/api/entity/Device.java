@@ -16,7 +16,7 @@ public class Device {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 100, nullable = false, unique = true)
+    @Column(length = 100)
     private String name;
 
     @Column(length = 100)
@@ -24,6 +24,9 @@ public class Device {
 
     @Column(length = 100)
     private String serial;
+
+    @Column(nullable = false)
+    private int port;
 
     @Column(length = 20, nullable = false, unique = true)
     private String ipAddress;

@@ -5,14 +5,14 @@ import com.ndm.api.config.ApiPathConfig;
 import com.ndm.api.dto.*;
 import com.ndm.api.dto.DeviceListResponse.DeviceResponse;
 import com.ndm.api.entity.Device;
-import com.ndm.api.entity.DeviceType;
 import com.ndm.api.exception.InvalidParameterException;
 import com.ndm.api.service.DeviceService;
 import com.ndm.api.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -59,5 +59,14 @@ public class DeviceController {
         }
         final List<Device> devices = deviceService.getByType(Integer.parseInt(request.getType()));
         return dtoFactory.toDeviceListResponse(devices);
+    }
+
+    @PostMapping(ApiPathConfig.ADD_DEVICE_URL)
+    public Success add(@Valid final DeviceAddRequestBody requestBody, final BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
+        }
+        deviceService.add(requestBody);
+        return new Success(HttpStatus.OK.value(), String.format(ConstantCommon.ADD_SUCCESSFULLY, "device"));
     }
 }
