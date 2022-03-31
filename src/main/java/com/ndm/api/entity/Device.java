@@ -41,7 +41,7 @@ public class Device {
     private boolean isResync;
 
     private String updatedAt;
-    private int type;
+    private Integer type;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ntp_id")
