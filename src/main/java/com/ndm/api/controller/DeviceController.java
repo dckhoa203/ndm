@@ -2,12 +2,10 @@ package com.ndm.api.controller;
 
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.config.ApiPathConfig;
-import com.ndm.api.dto.DeviceListResponse;
+import com.ndm.api.dto.*;
 import com.ndm.api.dto.DeviceListResponse.DeviceResponse;
-import com.ndm.api.dto.DeviceRequest;
-import com.ndm.api.dto.DeviceSearchRequest;
-import com.ndm.api.dto.DtoFactory;
 import com.ndm.api.entity.Device;
+import com.ndm.api.entity.DeviceType;
 import com.ndm.api.exception.InvalidParameterException;
 import com.ndm.api.service.DeviceService;
 import com.ndm.api.util.Utils;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class DeviceController {
@@ -51,5 +50,14 @@ public class DeviceController {
         }
         final Device device = deviceService.getByIpAddress(request.getIpAddress());
         return dtoFactory.toDeviceResponse(device);
+    }
+
+    @GetMapping(ApiPathConfig.GET_DEVICE_BY_TYPE_URL)
+    public DeviceListResponse getByType(@Valid final DeviceGetByTypeRequest request, final BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
+        }
+        final List<Device> devices = deviceService.getByType(Integer.parseInt(request.getType()));
+        return dtoFactory.toDeviceListResponse(devices);
     }
 }

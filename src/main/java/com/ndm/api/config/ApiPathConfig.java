@@ -16,4 +16,5 @@ public class ApiPathConfig {
     public static final String GET_ALL_DEVICE_URL = VERSION + "devices";
     public static final String GET_DEVICE_BY_ID_URL = VERSION + "device/{id}";
     public static final String SEARCH_DEVICE_BY_IP_ADDRESS_URL = VERSION + "device";
+    public static final String GET_DEVICE_BY_TYPE_URL = VERSION + "devices/{type}";
 }

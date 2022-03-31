@@ -33,7 +33,11 @@ public class DeviceServiceImpl implements DeviceService{
 
     @Override
     public Device getByIpAddress(final String ipAddress) {
-        Device device = deviceRepository.getByIpAddress(ipAddress);
         return deviceRepository.getByIpAddress(ipAddress);
+    }
+
+    @Override
+    public List<Device> getByType(final int type) {
+        return deviceRepository.getByType(type);
     }
 }

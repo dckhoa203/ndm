@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,9 @@ public class DtoFactory {
     }
 
     public DeviceListResponse toDeviceListResponse(final List<Device> devices) {
+        if (devices.isEmpty()) {
+            return new DeviceListResponse(Collections.emptyList());
+        }
         final List<DeviceResponse> deviceResponses = devices.stream().map(device -> modelMapper.map(device, DeviceResponse.class)).collect(Collectors.toList());
         return new DeviceListResponse(deviceResponses);
     }

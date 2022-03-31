@@ -8,4 +8,5 @@ public interface DeviceService {
     List<Device> getAll();
     Device findById(final int id);
     Device getByIpAddress(final String ipAddress);
+    List<Device> getByType(final int type);
 }
