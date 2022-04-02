@@ -24,4 +24,5 @@ public class ConstantCommon {
     public static final String DEVICE_NOT_FOUND = "Device not found.";
     public static final String DUPLICATE_IP_ADDRESS = "Duplicate ip address %s.";
     public static final String NTP_SERVER_NOT_FOUND = "Ntp server not found.";
+    public static final String INTERFACE_NOT_FOUND = "Interface not found.";
 }
