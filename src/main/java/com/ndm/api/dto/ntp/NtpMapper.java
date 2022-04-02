@@ -4,11 +4,13 @@ import com.ndm.api.entity.Ntp;
 import com.ndm.api.entity.NtpServer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 /**
  * A class define ntpMapper
  */
+@Component
 public class NtpMapper {
     private final ModelMapper modelMapper;
 

@@ -4,6 +4,7 @@ import com.ndm.api.entity.Device;
 import com.ndm.api.dto.device.DeviceListResponse.DeviceResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Collections;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 /**
  * A class define deviceMapper
  */
+@Component
 public class DeviceMapper {
     private final ModelMapper modelMapper;
 
