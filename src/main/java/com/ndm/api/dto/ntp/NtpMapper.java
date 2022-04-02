@@ -1,7 +1,6 @@
 package com.ndm.api.dto.ntp;
 
 import com.ndm.api.entity.Ntp;
-import com.ndm.api.entity.NtpServer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,18 +28,5 @@ public class NtpMapper {
             return null;
         }
         return modelMapper.map(ntp, NtpResponse.class);
-    }
-
-    /**
-     *
-     * @param requestBody NtpServerAddRequestBody
-     * @return NtpServer
-     */
-    public NtpServer mapToNtpServer(final NtpServerAddRequestBody requestBody) {
-        if (ObjectUtils.isEmpty(requestBody)) {
-            return null;
-        }
-        final ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(requestBody, NtpServer.class);
     }
 }

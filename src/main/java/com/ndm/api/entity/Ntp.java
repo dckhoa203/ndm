@@ -3,7 +3,7 @@ package com.ndm.api.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,6 +29,6 @@ public class Ntp {
     private int numberMessages;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ntp_id")
-    private Set<NtpServer> ntpServers;
+    @JoinColumn(name = "ntp_id", nullable = false)
+    private List<NtpServer> ntpServers;
 }

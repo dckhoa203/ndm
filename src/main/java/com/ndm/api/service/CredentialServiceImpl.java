@@ -75,11 +75,11 @@ public class CredentialServiceImpl implements CredentialService {
             throw new DataNotFoundException(CREDENTIAL_NOT_FOUND);
         }
 
-        if (credentialRepository.existsByNameNotById(credential.getName(), credential.getId())) {
+        if (credentialRepository.existsByName(credential.getName())) {
             throw new DuplicateException(String.format(ConstantCommon.DUPLICATE_NAME, credential.getName()));
         }
 
-        if (credentialRepository.existsByUsernameNotById(credential.getUsername(), credential.getId())) {
+        if (credentialRepository.existsByUsername(credential.getUsername())) {
             throw new DuplicateException(String.format(ConstantCommon.DUPLICATE_USERNAME, credential.getUsername()));
         }
 

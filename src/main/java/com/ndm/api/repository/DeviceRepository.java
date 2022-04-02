@@ -10,5 +10,4 @@ import java.util.List;
 public interface DeviceRepository extends JpaRepository<Device, Integer> {
     Device getByIpAddress(final String ipAddress);
     List<Device> getByType(final int type);
-    boolean existsByIpAddress(final String ipAddress);
 }

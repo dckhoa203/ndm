@@ -44,14 +44,14 @@ public class Device {
     private Integer type;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ntp_id")
+    @JoinColumn(name = "ntp_id", nullable = false)
     private Ntp ntp;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "device_id")
+    @JoinColumn(name = "device_id", nullable = false)
     private Set<Interface> interfaces;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "device_id")
+    @JoinColumn(name = "device_id", nullable = false)
     private Set<Port> ports;
 }

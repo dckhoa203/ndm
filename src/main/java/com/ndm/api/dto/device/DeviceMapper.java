@@ -59,4 +59,15 @@ public class DeviceMapper {
         }
         return modelMapper.map(requestBody, Device.class);
     }
+
+    /**
+     *
+     * @param label String
+     * @param ipAddress String
+     * @param port int
+     * @return Device
+     */
+    public Device mapToDevice(final String label, final String ipAddress, final int port) {
+        return Device.builder().label(label).ipAddress(ipAddress).port(port).build();
+    }
 }

@@ -3,7 +3,7 @@ package com.ndm.api.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,6 +26,6 @@ public class Credential {
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "credential_id")
-    private Set<Device> devices;
+    @JoinColumn(name = "credential_id", nullable = false)
+    private List<Device> devices;
 }

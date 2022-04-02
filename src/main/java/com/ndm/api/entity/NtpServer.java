@@ -15,7 +15,7 @@ public class NtpServer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 100, nullable = false, unique = true)
+    @Column(length = 100, nullable = false)
     private String clockName;
 
     @Column(length = 20, nullable = false, unique = true)

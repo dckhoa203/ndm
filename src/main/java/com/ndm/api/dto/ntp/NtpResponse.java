@@ -13,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class NtpResponse {
-    private int id;
     private boolean ntpClient;
     private int dscp;
     private int vlanPriority;
@@ -26,7 +25,6 @@ public class NtpResponse {
     @NoArgsConstructor
     @Data
     public static class NtpServerResponse {
-        private Integer id;
         private String clockName;
         private String ipAddress;
         private boolean state;
