@@ -3,7 +3,7 @@ package com.ndm.api.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -49,9 +49,9 @@ public class Device {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "device_id", nullable = false)
-    private Set<Interface> interfaces;
+    private List<Interface> interfaces;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "device_id", nullable = false)
-    private Set<Port> ports;
+    private List<Port> ports;
 }
