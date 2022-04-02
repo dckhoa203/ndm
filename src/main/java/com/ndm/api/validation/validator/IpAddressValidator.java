@@ -6,6 +6,9 @@ import org.springframework.util.StringUtils;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * This is a claas ip address validator class
+ */
 public class IpAddressValidator implements ConstraintValidator<IpAddress, String> {
 
     private static final String DELIMITER_CHARACTER = "\\.";

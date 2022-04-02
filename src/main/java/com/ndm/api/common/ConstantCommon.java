@@ -1,5 +1,8 @@
 package com.ndm.api.common;
 
+/**
+ * A class define ConstantCommon
+ */
 public class ConstantCommon {
     private ConstantCommon() {
 

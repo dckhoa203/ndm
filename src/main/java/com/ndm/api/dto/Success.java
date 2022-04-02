@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * A class define Success response
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

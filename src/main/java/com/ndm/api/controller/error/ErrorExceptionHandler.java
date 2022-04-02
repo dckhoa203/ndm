@@ -5,6 +5,7 @@ import com.ndm.api.dto.Error;
 import com.ndm.api.exception.DataNotFoundException;
 import com.ndm.api.exception.DuplicateException;
 import com.ndm.api.exception.InvalidParameterException;
+import com.ndm.api.exception.NdmException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * A class define ErrorExceptionHandler
+ */
 @ControllerAdvice
 public class ErrorExceptionHandler {
     /**
@@ -89,13 +93,13 @@ public class ErrorExceptionHandler {
     }
 
     /**
-     * This is a method to catch Invalid exception
+     * This is a method to catch Invalid ndm exception
      * @return Error Object {500, "Internal Server Error."}
      */
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(NdmException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public Error handlerException() {
+    public Error handlerNdmException() {
         return Error.builder()
                     .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                     .message(ConstantCommon.SERVER_ERROR_MESSAGE)

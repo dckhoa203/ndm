@@ -1,10 +1,13 @@
-package com.ndm.api.dto;
+package com.ndm.api.dto.device;
 
 import com.ndm.api.validation.Number;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * A class define DeviceGetByTypeRequest
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

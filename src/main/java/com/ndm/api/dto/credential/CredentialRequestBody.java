@@ -1,4 +1,4 @@
-package com.ndm.api.dto;
+package com.ndm.api.dto.credential;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

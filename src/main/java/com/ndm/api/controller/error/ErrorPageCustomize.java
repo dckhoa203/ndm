@@ -6,6 +6,9 @@ import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerF
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 
+/**
+ * A class define ErrorPageCustomize
+ */
 @Configuration
 public class ErrorPageCustomize implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
 

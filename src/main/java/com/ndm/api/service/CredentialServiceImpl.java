@@ -1,8 +1,8 @@
 package com.ndm.api.service;
 
 import com.ndm.api.common.ConstantCommon;
-import com.ndm.api.dto.CredentialRequest;
-import com.ndm.api.dto.CredentialRequestBody;
+import com.ndm.api.dto.credential.CredentialMapper;
+import com.ndm.api.dto.credential.CredentialRequestBody;
 import com.ndm.api.entity.Credential;
 import com.ndm.api.exception.DataNotFoundException;
 import com.ndm.api.exception.DuplicateException;
@@ -16,10 +16,16 @@ import java.util.List;
 
 import static com.ndm.api.common.ConstantCommon.CREDENTIAL_NOT_FOUND;
 
+/**
+ * A class define credential service implement
+ */
 @Service
 public class CredentialServiceImpl implements CredentialService {
 
     private final CredentialRepository credentialRepository;
+
+    @Autowired
+    private CredentialMapper credentialMapper;
 
     @Autowired
     public CredentialServiceImpl(final CredentialRepository credentialRepository) {
@@ -42,11 +48,7 @@ public class CredentialServiceImpl implements CredentialService {
     @Override
     @Transactional
     public void add(final CredentialRequestBody requestBody) {
-        final Credential credential = Credential.builder()
-                                                .name(requestBody.getName())
-                                                .username(requestBody.getUsername())
-                                                .password(requestBody.getPassword())
-                                                .build();
+        final Credential credential = credentialMapper.mapToCredential(requestBody);
         if (credentialRepository.existsByName(credential.getName())) {
             throw new DuplicateException(String.format(ConstantCommon.DUPLICATE_NAME, credential.getName()));
         }
@@ -60,19 +62,15 @@ public class CredentialServiceImpl implements CredentialService {
 
     /**
      * This is the method of updating a credential
-     * @param request CredentialRequest
+     * @param id CredentialRequest
      * @param requestBody CredentialRequestBody
      */
     @Override
     @Transactional
-    public void update(final CredentialRequest request, final CredentialRequestBody requestBody) {
-        final Credential credential = Credential.builder()
-                                                .id(Integer.parseInt(request.getId()))
-                                                .name(requestBody.getName())
-                                                .username(requestBody.getUsername())
-                                                .password(requestBody.getPassword())
-                                                .build();
-        Credential newCredential = credentialRepository.getById(credential.getId());
+    public void update(final int id, final CredentialRequestBody requestBody) {
+        final Credential credential = credentialMapper.mapToCredential(requestBody);
+        credential.setId(id);
+        final Credential newCredential = credentialRepository.getById(credential.getId());
         if (ObjectUtils.isEmpty(credential)) {
             throw new DataNotFoundException(CREDENTIAL_NOT_FOUND);
         }

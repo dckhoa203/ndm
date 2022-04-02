@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * A class define annotation @NumberValidator
+ * A class define annotation @Number
  */
 @Documented
 @Constraint(validatedBy = NumberValidator.class)

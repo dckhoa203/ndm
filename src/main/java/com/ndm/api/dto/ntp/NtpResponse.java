@@ -1,4 +1,4 @@
-package com.ndm.api.dto;
+package com.ndm.api.dto.ntp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * A class define NtpResponse
+ */
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class NtpResponse {

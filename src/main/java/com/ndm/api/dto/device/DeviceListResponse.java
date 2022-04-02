@@ -1,4 +1,4 @@
-package com.ndm.api.dto;
+package com.ndm.api.dto.device;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * A class define DeviceListResponse
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

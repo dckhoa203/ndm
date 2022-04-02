@@ -6,6 +6,9 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
+/**
+ * A class define annotation @IpAddress
+ */
 @Documented
 @Constraint(validatedBy = IpAddressValidator.class)
 @Target(ElementType.FIELD)

@@ -1,4 +1,4 @@
-package com.ndm.api.dto;
+package com.ndm.api.dto.device;
 
 import com.ndm.api.validation.IpAddress;
 import com.ndm.api.validation.Number;
@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * A class define DeviceAddRequestBody
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

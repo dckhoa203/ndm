@@ -1,6 +1,6 @@
 package com.ndm.api.service;
 
-import com.ndm.api.dto.DeviceAddRequestBody;
+import com.ndm.api.dto.device.DeviceAddRequestBody;
 import com.ndm.api.entity.Device;
 
 import java.util.List;
