@@ -19,11 +19,33 @@ public class PortMapper {
         this.modelMapper = modelMapper;
     }
 
+    /**
+     * This is a method convert Ports list to PortListResponse
+     * @param ports List<Port>
+     * @return PortListResponse
+     */
     public PortListResponse mapToPortListResponse(final List<Port> ports) {
         if (ports.isEmpty()) {
             return new PortListResponse(Collections.emptyList());
         }
         final List<PortResponse> portResponses = ports.stream().map(port -> modelMapper.map(port, PortResponse.class)).collect(Collectors.toList());
         return new PortListResponse(portResponses);
+    }
+
+    /**
+     * This is a method convert PortAddRequestBody to Port
+     * @param requestBody PortAddRequestBody
+     * @return Port
+     */
+    public Port mapToPort(final PortAddRequestBody requestBody) {
+        return Port.builder()
+                   .name(requestBody.getName())
+                   .connector(requestBody.getConnector())
+                   .state(requestBody.isState())
+                   .speed(requestBody.getSpeed())
+                   .mtu(requestBody.getMtu())
+                   .mdi(requestBody.getMdi())
+                   .macAddress(requestBody.getMacAddress())
+                   .build();
     }
 }
