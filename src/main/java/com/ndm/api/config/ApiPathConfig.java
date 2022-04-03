@@ -26,6 +26,7 @@ public class ApiPathConfig {
     public static final String DELETE_DEVICE_URL = VERSION + "device/{id}";
 
     public static final String GET_ALL_INTERFACE_BY_DEVICE_URL = VERSION + "{deviceId}/interfaces";
+    public static final String ADD_INTERFACE_BY_DEVICE_URL = VERSION + "interface";
     public static final String DELETE_INTERFACE_URL = VERSION + "interface/{id}";
 
     public static final String GET_ALL_PORT_BY_DEVICE_URL = VERSION + "{deviceId}/ports";

@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.Length;
 public class DeviceAddRequestBody {
 
     private static final String LABEL_LENGTH_INVALID_MESSAGE = "Label length must be less than 100";
-    private static final String IP_ADDRESS_INVALID_MESSAGE = "IP address must be in the correct format 000.000.000.000";
+    private static final String IP_ADDRESS_INVALID_MESSAGE = "IP address must be in format 000.000.000.000";
     private static final String PORT_INVALID_MESSAGE = "Port must be numeric and greater than 0";
     private static final String CREDENTIAL_ID_INVALID_MESSAGE = "Credential id must be numeric and greater than 0";
 

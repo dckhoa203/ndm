@@ -31,4 +31,20 @@ public class InterfaceMapper {
         final List<InterfaceResponse> interfaceResponses = interfaces.stream().map(anInterface -> modelMapper.map(anInterface, InterfaceResponse.class)).collect(Collectors.toList());
         return new InterfaceListResponse(interfaceResponses);
     }
+
+    /**
+     * This is a method convert InterfaceAddRequestBody to Interface
+     * @param requestBody InterfaceAddRequestBody
+     * @return Interface
+     */
+    public Interface mapToInterface(final InterfaceAddRequestBody requestBody) {
+        return Interface.builder()
+                        .name(requestBody.getName())
+                        .dhcp(requestBody.isDhcp())
+                        .state(requestBody.isState())
+                        .ipAddress(requestBody.getIpAddress())
+                        .netmask(requestBody.getNetmask())
+                        .gateway(requestBody.getGateway())
+                        .build();
+    }
 }
