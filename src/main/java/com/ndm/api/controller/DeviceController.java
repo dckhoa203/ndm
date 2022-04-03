@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * A class define device controller
+ * This DeviceController class to define all api related to Device
  */
 @RestController
 public class DeviceController {

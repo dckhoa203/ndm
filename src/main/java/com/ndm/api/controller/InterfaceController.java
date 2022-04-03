@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * This InterfaceController class to define all api related to Interface
+ */
 @RestController
 public class InterfaceController {
     private final InterfaceService interfaceService;

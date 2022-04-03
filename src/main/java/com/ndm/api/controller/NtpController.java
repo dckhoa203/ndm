@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 /**
- * A class NtpController
+ * This NtpController class to define all api related to Ntp
  */
 @RestController
 public class NtpController {

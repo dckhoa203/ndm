@@ -1,11 +1,15 @@
 package com.ndm.api.dto.port;
 
+import com.ndm.api.validation.MacAddress;
 import com.ndm.api.validation.Number;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * This class PortAddRequestBody
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -15,7 +19,7 @@ public class PortAddRequestBody {
     private static final String SPEED_LENGTH_INVALID_MESSAGE = "Speed length must be less than 10";
     private static final String MTU_LENGTH_INVALID_MESSAGE = "Mtu length must be less than 10";
     private static final String MDI_LENGTH_INVALID_MESSAGE = "Mdi length must be less than 10";
-    private static final String MAC_ADDRESS_INVALID_MESSAGE = "IP address must be in format 000.000.000.000";
+    private static final String MAC_ADDRESS_INVALID_MESSAGE = "Mac address must be in format MM:MM:MM:SS:SS:SS.";
     private static final String DEVICE_ID_INVALID_MESSAGE = "Device id must be numeric and greater than 0";
 
     private static final int NAME_LENGTH = 100;
@@ -35,6 +39,7 @@ public class PortAddRequestBody {
     private String mtu;
     @Length(max = MDI_LENGTH, message = MDI_LENGTH_INVALID_MESSAGE)
     private String mdi;
+    @MacAddress(message = MAC_ADDRESS_INVALID_MESSAGE)
     private String macAddress;
     @Number(message = DEVICE_ID_INVALID_MESSAGE)
     private String deviceId;

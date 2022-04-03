@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * This PortController class to define all api related to Port
+ */
 @RestController
 public class PortController {
 

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 /**
- * A class define credential controller
+ * This CredentialController class to define all api related to Credential
  */
 @RestController
 public class CredentialController {
