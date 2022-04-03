@@ -45,6 +45,20 @@ public class InterfaceController {
         return new Success(HttpStatus.OK.value(), String.format(ConstantCommon.ADD_SUCCESSFULLY, "interface"));
     }
 
+    @PutMapping(ApiPathConfig.UPDATE_INTERFACE_URL)
+    public Success update(@Valid final InterfaceRequest request, final BindingResult requestBindingResult,
+                          @Valid @RequestBody final  InterfaceUpdateRequestBody requestBody, final BindingResult requestBodyBindingResult) {
+        if (requestBindingResult.hasErrors()) {
+            throw new InvalidParameterException(Utils.getErrorMessage(requestBindingResult));
+        }
+
+        if (requestBodyBindingResult.hasErrors()) {
+            throw new InvalidParameterException(Utils.getErrorMessage(requestBodyBindingResult));
+        }
+        interfaceService.update(Integer.parseInt(request.getId()), requestBody);
+        return new Success(HttpStatus.OK.value(), String.format(ConstantCommon.UPDATE_SUCCESSFULLY, "interface"));
+    }
+
     @DeleteMapping(ApiPathConfig.DELETE_INTERFACE_URL)
     public Success delete(@Valid final InterfaceRequest request, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

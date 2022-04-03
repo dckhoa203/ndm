@@ -3,9 +3,11 @@ package com.ndm.api.service;
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.dto.intefaces.InterfaceAddRequestBody;
 import com.ndm.api.dto.intefaces.InterfaceMapper;
+import com.ndm.api.dto.intefaces.InterfaceUpdateRequestBody;
 import com.ndm.api.entity.Device;
 import com.ndm.api.entity.Interface;
 import com.ndm.api.exception.DataNotFoundException;
+import com.ndm.api.exception.DuplicateException;
 import com.ndm.api.repository.DeviceRepository;
 import com.ndm.api.repository.InterfaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,34 @@ public class InterfaceServiceImpl implements InterfaceService {
 
         interfaceRepository.save(anInterface);
         deviceRepository.save(device);
+    }
+
+    @Override
+    public void update(final int id, final InterfaceUpdateRequestBody requestBody) {
+        final Optional<Interface> interfaceOptional = interfaceRepository.findById(id);
+        final Interface anInterface = interfaceOptional.orElseThrow(() -> new DataNotFoundException(ConstantCommon.INTERFACE_NOT_FOUND));
+
+        if (interfaceRepository.existsByIpAddress(requestBody.getIpAddress())) {
+            throw new DuplicateException(String.format(ConstantCommon.DUPLICATE_IP_ADDRESS, requestBody.getIpAddress()));
+        }
+
+        if (!requestBody.isNameEmpty()) {
+            anInterface.setName(requestBody.getName());
+        }
+
+        if (!requestBody.isNetmaskEmpty()) {
+            anInterface.setNetmask(requestBody.getNetmask());
+        }
+
+        if (!requestBody.isGatewayEmpty()) {
+            anInterface.setGateway(requestBody.getGateway());
+        }
+
+        anInterface.setState(requestBody.isState());
+        anInterface.setDhcp(requestBody.isDhcp());
+        anInterface.setIpAddress(requestBody.getIpAddress());
+
+        interfaceRepository.save(anInterface);
     }
 
     @Override
