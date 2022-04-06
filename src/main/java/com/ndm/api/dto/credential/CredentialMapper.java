@@ -1,7 +1,6 @@
 package com.ndm.api.dto.credential;
 
 import com.ndm.api.entity.Credential;
-import com.ndm.api.dto.credential.CredentialsResponse.CredentialResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,14 +25,13 @@ public class CredentialMapper {
     /**
      * This is a method convert Credential list to CredentialsResponse
      * @param credentials List<Credential>
-     * @return CredentialsResponse
+     * @return List<CredentialResponse>
      */
-    public CredentialsResponse mapToCredentialsResponse(final List<Credential> credentials) {
+    public List<CredentialResponse> mapToCredentialResponseList(final List<Credential> credentials) {
         if (credentials.isEmpty()) {
-            return new CredentialsResponse(Collections.emptyList());
+            return Collections.emptyList();
         }
-        final List<CredentialResponse> credentialResponseList = credentials.stream().map(credential -> modelMapper.map(credential, CredentialResponse.class)).collect(Collectors.toList());
-        return new CredentialsResponse(credentialResponseList);
+        return credentials.stream().map(credential -> modelMapper.map(credential, CredentialResponse.class)).collect(Collectors.toList());
     }
 
     /**

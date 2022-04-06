@@ -3,9 +3,11 @@ package com.ndm.api.service;
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.dto.port.PortAddRequestBody;
 import com.ndm.api.dto.port.PortMapper;
+import com.ndm.api.dto.port.PortResponse;
 import com.ndm.api.entity.Device;
 import com.ndm.api.entity.Port;
 import com.ndm.api.exception.DataNotFoundException;
+import com.ndm.api.exception.DuplicateException;
 import com.ndm.api.repository.DeviceRepository;
 import com.ndm.api.repository.PortRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class PortServiceImpl implements PortService {
     private final DeviceRepository deviceRepository;
     private final PortRepository portRepository;
@@ -31,14 +32,18 @@ public class PortServiceImpl implements PortService {
     }
 
     @Override
-    public List<Port> getAllByDeviceId(final int deviceId) {
+    public List<PortResponse> getAll(final int deviceId) {
         final Optional<Device> deviceOptional = deviceRepository.findById(deviceId);
         final Device device = deviceOptional.orElseThrow(() -> new DataNotFoundException(ConstantCommon.DEVICE_NOT_FOUND));
-        return device.getPorts();
+        return portMapper.mapToPortListResponse(device.getPorts());
     }
 
     @Override
-    public void addToDevice(final PortAddRequestBody requestBody) {
+    @Transactional
+    public void add(final PortAddRequestBody requestBody) {
+        if (portRepository.existsByMacAddress(requestBody.getMacAddress())) {
+            throw new DuplicateException(String.format(ConstantCommon.DUPLICATE_MAC_ADDRESS, requestBody.getMacAddress()));
+        }
         final Port port = portMapper.mapToPort(requestBody);
         final Optional<Device> deviceOptional = deviceRepository.findById(Integer.parseInt(requestBody.getDeviceId()));
         final Device device = deviceOptional.orElseThrow(() -> new DataNotFoundException(ConstantCommon.DEVICE_NOT_FOUND));
@@ -51,6 +56,7 @@ public class PortServiceImpl implements PortService {
     }
 
     @Override
+    @Transactional
     public void delete(final int id) {
         final Optional<Port> portOptional = portRepository.findById(id);
         final Port port = portOptional.orElseThrow(() -> new DataNotFoundException(ConstantCommon.PORT_NOT_FOUND));

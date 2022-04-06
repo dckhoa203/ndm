@@ -2,10 +2,9 @@ package com.ndm.api.controller;
 
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.config.ApiPathConfig;
-import com.ndm.api.dto.credential.CredentialMapper;
 import com.ndm.api.dto.credential.CredentialRequest;
 import com.ndm.api.dto.credential.CredentialRequestBody;
-import com.ndm.api.dto.credential.CredentialsResponse;
+import com.ndm.api.dto.credential.CredentialResponse;
 import com.ndm.api.dto.Success;
 import com.ndm.api.exception.InvalidParameterException;
 import com.ndm.api.service.CredentialService;
@@ -16,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * This CredentialController class to define all api related to Credential
@@ -26,20 +26,17 @@ public class CredentialController {
     private final CredentialService credentialService;
 
     @Autowired
-    private CredentialMapper credentialMapper;
-
-    @Autowired
     public CredentialController(final CredentialService credentialService) {
         this.credentialService = credentialService;
     }
 
     /**
      * This is a method to get all credential
-     * @return CredentialsResponse Object
+     * @return List<CredentialResponse>
      */
     @GetMapping(ApiPathConfig.GET_ALL_CREDENTIAL_URL)
-    public CredentialsResponse getAll() {
-        return credentialMapper.mapToCredentialsResponse(credentialService.getAll());
+    public List<CredentialResponse> getAll() {
+        return credentialService.getAll();
     }
 
     /**

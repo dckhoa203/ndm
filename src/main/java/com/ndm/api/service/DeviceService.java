@@ -1,15 +1,15 @@
 package com.ndm.api.service;
 
 import com.ndm.api.dto.device.DeviceAddRequestBody;
-import com.ndm.api.entity.Device;
+import com.ndm.api.dto.device.DeviceResponse;
 
 import java.util.List;
 
 public interface DeviceService {
-    List<Device> getAll();
-    Device findById(final int id);
-    Device getByIpAddress(final String ipAddress);
-    List<Device> getByType(final int type);
+    List<DeviceResponse> getAll();
+    DeviceResponse findById(final int id);
+    DeviceResponse getByIpAddress(final String ipAddress);
+    List<DeviceResponse> getByType(final int type);
     void add(final DeviceAddRequestBody requestBody);
     void delete(final int id);
 }

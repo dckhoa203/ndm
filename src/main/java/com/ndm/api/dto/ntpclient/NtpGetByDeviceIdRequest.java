@@ -1,4 +1,4 @@
-package com.ndm.api.dto.ntp;
+package com.ndm.api.dto.ntpclient;
 
 import com.ndm.api.validation.Number;
 import lombok.AllArgsConstructor;

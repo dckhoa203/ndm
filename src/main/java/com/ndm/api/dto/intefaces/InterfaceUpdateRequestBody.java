@@ -16,7 +16,6 @@ public class InterfaceUpdateRequestBody {
     private static final String NETMASK_INVALID_MESSAGE = "Netmask must be in format 000.000.000.000";
     private static final String GATEWAY_INVALID_MESSAGE = "Gateway must be in format 000.000.000.000";
     private static final String DEVICE_ID_INVALID_MESSAGE = "Device id must be numeric and greater than 0";
-
     private static final int NAME_LENGTH = 100;
 
     @Length(max = NAME_LENGTH, message = NAME_LENGTH_INVALID_MESSAGE)

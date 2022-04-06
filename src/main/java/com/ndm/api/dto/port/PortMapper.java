@@ -1,7 +1,6 @@
 package com.ndm.api.dto.port;
 
 import com.ndm.api.entity.Port;
-import com.ndm.api.dto.port.PortListResponse.PortResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,14 +21,13 @@ public class PortMapper {
     /**
      * This is a method convert Ports list to PortListResponse
      * @param ports List<Port>
-     * @return PortListResponse
+     * @return List<PortResponse>
      */
-    public PortListResponse mapToPortListResponse(final List<Port> ports) {
+    public List<PortResponse> mapToPortListResponse(final List<Port> ports) {
         if (ports.isEmpty()) {
-            return new PortListResponse(Collections.emptyList());
+            return Collections.emptyList();
         }
-        final List<PortResponse> portResponses = ports.stream().map(port -> modelMapper.map(port, PortResponse.class)).collect(Collectors.toList());
-        return new PortListResponse(portResponses);
+        return ports.stream().map(port -> modelMapper.map(port, PortResponse.class)).collect(Collectors.toList());
     }
 
     /**

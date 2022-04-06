@@ -1,7 +1,6 @@
 package com.ndm.api.dto.device;
 
 import com.ndm.api.entity.Device;
-import com.ndm.api.dto.device.DeviceListResponse.DeviceResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,14 +25,13 @@ public class DeviceMapper {
     /**
      * This is a method convert Devices to DeviceListResponse
      * @param devices List<Device>
-     * @return DeviceListResponse
+     * @return List<DeviceResponse>
      */
-    public DeviceListResponse mapToDeviceListResponse(final List<Device> devices) {
+    public List<DeviceResponse> mapToDeviceResponseList(final List<Device> devices) {
         if (devices.isEmpty()) {
-            return new DeviceListResponse(Collections.emptyList());
+            return Collections.emptyList();
         }
-        final List<DeviceListResponse.DeviceResponse> deviceResponses = devices.stream().map(device -> modelMapper.map(device, DeviceResponse.class)).collect(Collectors.toList());
-        return new DeviceListResponse(deviceResponses);
+        return devices.stream().map(device -> modelMapper.map(device, DeviceResponse.class)).collect(Collectors.toList());
     }
 
     /**

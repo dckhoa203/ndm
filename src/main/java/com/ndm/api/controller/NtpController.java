@@ -1,8 +1,7 @@
 package com.ndm.api.controller;
 
 import com.ndm.api.config.ApiPathConfig;
-import com.ndm.api.dto.ntp.*;
-import com.ndm.api.entity.Ntp;
+import com.ndm.api.dto.ntpclient.*;
 import com.ndm.api.exception.InvalidParameterException;
 import com.ndm.api.service.NtpService;
 import com.ndm.api.util.Utils;
@@ -18,14 +17,11 @@ import javax.validation.Valid;
  */
 @RestController
 public class NtpController {
-
     private final NtpService ntpService;
-    private final NtpMapper ntpMapper;
 
     @Autowired
-    public NtpController(final NtpService ntpService, final NtpMapper ntpMapper) {
+    public NtpController(final NtpService ntpService) {
         this.ntpService = ntpService;
-        this.ntpMapper = ntpMapper;
     }
 
     /**
@@ -39,7 +35,6 @@ public class NtpController {
         if (bindingResult.hasErrors()) {
             throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
         }
-        final Ntp ntp = ntpService.getByDeviceId(Integer.parseInt(request.getDeviceId()));
-        return ntpMapper.mapToNtpResponse(ntp);
+        return ntpService.getByDeviceId(Integer.parseInt(request.getDeviceId()));
     }
 }

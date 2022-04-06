@@ -1,7 +1,7 @@
 package com.ndm.api.service;
 
-import com.ndm.api.entity.Ntp;
+import com.ndm.api.dto.ntpclient.NtpResponse;
 
 public interface NtpService {
-    Ntp getByDeviceId(final int id);
+    NtpResponse getByDeviceId(final int id);
 }

@@ -3,6 +3,7 @@ package com.ndm.api.service;
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.dto.credential.CredentialMapper;
 import com.ndm.api.dto.credential.CredentialRequestBody;
+import com.ndm.api.dto.credential.CredentialResponse;
 import com.ndm.api.entity.Credential;
 import com.ndm.api.exception.DataNotFoundException;
 import com.ndm.api.exception.DuplicateException;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.ndm.api.common.ConstantCommon.CREDENTIAL_NOT_FOUND;
 
@@ -23,22 +25,22 @@ import static com.ndm.api.common.ConstantCommon.CREDENTIAL_NOT_FOUND;
 public class CredentialServiceImpl implements CredentialService {
 
     private final CredentialRepository credentialRepository;
+    private final CredentialMapper credentialMapper;
 
     @Autowired
-    private CredentialMapper credentialMapper;
-
-    @Autowired
-    public CredentialServiceImpl(final CredentialRepository credentialRepository) {
+    public CredentialServiceImpl(final CredentialRepository credentialRepository, final CredentialMapper credentialMapper) {
         this.credentialRepository = credentialRepository;
+        this.credentialMapper = credentialMapper;
     }
 
     /**
      * This is the method of get all credential
-     * @return List<Credential>
+     * @return List<CredentialResponse>
      */
     @Override
-    public List<Credential> getAll() {
-        return credentialRepository.findAll();
+    public List<CredentialResponse> getAll() {
+        final List<Credential> credentials = credentialRepository.findAll();
+        return credentialMapper.mapToCredentialResponseList(credentials);
     }
 
     /**
@@ -97,10 +99,8 @@ public class CredentialServiceImpl implements CredentialService {
     @Override
     @Transactional
     public void delete(final int id) {
-        final Credential credential = credentialRepository.getById(id);
-        if (ObjectUtils.isEmpty(credential)) {
-            throw new DataNotFoundException(CREDENTIAL_NOT_FOUND);
-        }
+        final Optional<Credential> credentialOptional = credentialRepository.findById(id);
+        final Credential credential = credentialOptional.orElseThrow(() -> new DataNotFoundException(CREDENTIAL_NOT_FOUND));
         credentialRepository.delete(credential);
     }
 }

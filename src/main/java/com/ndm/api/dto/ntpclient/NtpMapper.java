@@ -1,4 +1,4 @@
-package com.ndm.api.dto.ntp;
+package com.ndm.api.dto.ntpclient;
 
 import com.ndm.api.entity.Ntp;
 import org.modelmapper.ModelMapper;

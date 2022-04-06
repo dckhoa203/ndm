@@ -1,7 +1,6 @@
 package com.ndm.api.dto.intefaces;
 
 import com.ndm.api.entity.Interface;
-import com.ndm.api.dto.intefaces.InterfaceListResponse.InterfaceResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,14 +21,13 @@ public class InterfaceMapper {
     /**
      * This is a method convert Interface list to InterfaceListResponse
      * @param interfaces List<Interface>
-     * @return InterfaceListResponse
+     * @return List<InterfaceResponse>
      */
-    public InterfaceListResponse mapToInterfaceListResponse(final List<Interface> interfaces) {
+    public List<InterfaceResponse> mapToInterfaceResponseList(final List<Interface> interfaces) {
         if (interfaces.isEmpty()) {
-            return new InterfaceListResponse(Collections.emptyList());
+            return Collections.emptyList();
         }
-        final List<InterfaceResponse> interfaceResponses = interfaces.stream().map(anInterface -> modelMapper.map(anInterface, InterfaceResponse.class)).collect(Collectors.toList());
-        return new InterfaceListResponse(interfaceResponses);
+        return interfaces.stream().map(anInterface -> modelMapper.map(anInterface, InterfaceResponse.class)).collect(Collectors.toList());
     }
 
     /**
