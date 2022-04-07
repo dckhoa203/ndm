@@ -1,8 +1,8 @@
-package com.ndm.api.service;
+package com.ndm.api.service.implement;
 
 import com.ndm.api.common.ConstantCommon;
+import com.ndm.api.dto.DtoMapper;
 import com.ndm.api.dto.port.PortAddRequestBody;
-import com.ndm.api.dto.port.PortMapper;
 import com.ndm.api.dto.port.PortResponse;
 import com.ndm.api.entity.Device;
 import com.ndm.api.entity.Port;
@@ -10,6 +10,7 @@ import com.ndm.api.exception.DataNotFoundException;
 import com.ndm.api.exception.DuplicateException;
 import com.ndm.api.repository.DeviceRepository;
 import com.ndm.api.repository.PortRepository;
+import com.ndm.api.service.PortService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,20 +23,20 @@ import java.util.Optional;
 public class PortServiceImpl implements PortService {
     private final DeviceRepository deviceRepository;
     private final PortRepository portRepository;
-    private final PortMapper portMapper;
+    private final DtoMapper mapper;
 
     @Autowired
-    public PortServiceImpl(final DeviceRepository deviceRepository, final PortRepository portRepository, final PortMapper portMapper) {
+    public PortServiceImpl(final DeviceRepository deviceRepository, final PortRepository portRepository, final DtoMapper mapper) {
         this.deviceRepository = deviceRepository;
         this.portRepository = portRepository;
-        this.portMapper = portMapper;
+        this.mapper = mapper;
     }
 
     @Override
     public List<PortResponse> getAll(final int deviceId) {
         final Optional<Device> deviceOptional = deviceRepository.findById(deviceId);
         final Device device = deviceOptional.orElseThrow(() -> new DataNotFoundException(ConstantCommon.DEVICE_NOT_FOUND));
-        return portMapper.mapToPortListResponse(device.getPorts());
+        return mapper.mapToPortListResponse(device.getPorts());
     }
 
     @Override
@@ -44,7 +45,7 @@ public class PortServiceImpl implements PortService {
         if (portRepository.existsByMacAddress(requestBody.getMacAddress())) {
             throw new DuplicateException(String.format(ConstantCommon.DUPLICATE_MAC_ADDRESS, requestBody.getMacAddress()));
         }
-        final Port port = portMapper.mapToPort(requestBody);
+        final Port port = mapper.mapToPort(requestBody);
         final Optional<Device> deviceOptional = deviceRepository.findById(Integer.parseInt(requestBody.getDeviceId()));
         final Device device = deviceOptional.orElseThrow(() -> new DataNotFoundException(ConstantCommon.DEVICE_NOT_FOUND));
         final List<Port> ports = new ArrayList<>();

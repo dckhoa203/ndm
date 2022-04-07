@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @Builder
 @Entity
-public class Ntp {
+public class NtpClient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -19,16 +19,12 @@ public class Ntp {
     @Column(columnDefinition = "boolean default false")
     private boolean ntpClient;
 
-    private int dscp;
-    private int vlanPriority;
-
     @Column(columnDefinition = "boolean default false")
     private boolean syncStatus;
 
-    private int timeInterval;
-    private int numberMessages;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ntp_id", nullable = false)
-    private List<NtpServer> ntpServers;
+    private Integer taiOffset;
+    private Integer dscp;
+    private Integer vlanPriority;
+    private Integer timeInterval;
+    private Integer numberMessages;
 }

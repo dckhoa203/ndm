@@ -3,21 +3,17 @@ package com.ndm.api.controller;
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.config.ApiPathConfig;
 import com.ndm.api.dto.Success;
-import com.ndm.api.dto.ntpserver.NtpServerRequest;
-import com.ndm.api.dto.ntpserver.NtpServerAddRequestBody;
-import com.ndm.api.dto.ntpserver.NtpServerUpdateRequestBody;
+import com.ndm.api.dto.ntpserver.*;
 import com.ndm.api.exception.InvalidParameterException;
 import com.ndm.api.service.NtpServerService;
 import com.ndm.api.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * This NtpServerController class to define all api related to Ntp server
@@ -29,6 +25,20 @@ public class NtpServerController {
     @Autowired
     public NtpServerController(final NtpServerService ntpServerService) {
         this.ntpServerService = ntpServerService;
+    }
+
+    /**
+     * This is a method of get all ntp server
+     * @param request NtpServerGetRequest
+     * @param bindingResult BindingResult
+     * @return List<NtpServerResponse>
+     */
+    @GetMapping(ApiPathConfig.GET_ALL_NTP_SERVER_BY_DEVICE_ID_URL)
+    public List<NtpServerResponse> getAll(@Valid final NtpServerGetRequest request, final BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
+        }
+        return ntpServerService.getAll(Integer.parseInt(request.getDeviceId()));
     }
 
     /**
@@ -48,14 +58,14 @@ public class NtpServerController {
 
     /**
      * This is a method of updating ntp server
-     * @param request NtpServerRequest
+     * @param request NtpServerUpdateRequest
      * @param requestBindingResult BindingResult
      * @param requestBody NtpServerUpdateRequestBody
      * @param requestBodyBindingResult BindingResult
      * @return Success
      */
     @PutMapping(ApiPathConfig.UPDATE_NTP_SERVER_URL)
-    public Success update(@Valid final NtpServerRequest request, final BindingResult requestBindingResult,
+    public Success update(@Valid final NtpServerUpdateRequest request, final BindingResult requestBindingResult,
                           @Valid @RequestBody final NtpServerUpdateRequestBody requestBody, final BindingResult requestBodyBindingResult) {
         if (requestBindingResult.hasErrors()) {
             throw new InvalidParameterException(Utils.getErrorMessage(requestBindingResult));
@@ -64,8 +74,8 @@ public class NtpServerController {
         if (requestBodyBindingResult.hasErrors()) {
             throw new InvalidParameterException(Utils.getErrorMessage(requestBodyBindingResult));
         }
-        ntpServerService.update(Integer.parseInt(request.getId()), requestBody);
+
+        ntpServerService.update(Integer.parseInt(request.getDeviceId()), request.getClockName(), requestBody);
         return new Success(HttpStatus.OK.value(), String.format(ConstantCommon.UPDATE_SUCCESSFULLY, "ntp server"));
     }
-
 }

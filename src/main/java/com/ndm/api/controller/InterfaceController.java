@@ -23,7 +23,7 @@ public class InterfaceController {
     private final InterfaceService interfaceService;
 
     @Autowired
-    public InterfaceController(final InterfaceService interfaceService, final InterfaceMapper interfaceMapper) {
+    public InterfaceController(final InterfaceService interfaceService) {
         this.interfaceService = interfaceService;
     }
 
