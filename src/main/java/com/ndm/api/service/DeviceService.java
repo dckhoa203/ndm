@@ -1,5 +1,6 @@
 package com.ndm.api.service;
 
+import com.jcraft.jsch.JSchException;
 import com.ndm.api.dto.device.DeviceAddRequestBody;
 import com.ndm.api.dto.device.DeviceResponse;
 
@@ -12,4 +13,6 @@ public interface DeviceService {
     List<DeviceResponse> getByType(final int type);
     void add(final DeviceAddRequestBody requestBody);
     void delete(final int id);
+    void managed(final int id) throws JSchException;
+    void unmanaged(final int id);
 }

@@ -1,5 +1,6 @@
 package com.ndm.api.controller.error;
 
+import com.jcraft.jsch.JSchException;
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.dto.Error;
 import com.ndm.api.exception.DataNotFoundException;
@@ -88,6 +89,21 @@ public class ErrorExceptionHandler {
     public Error handlerDuplicateException(final DuplicateException ex) {
         return Error.builder()
                     .code(HttpStatus.BAD_REQUEST.value())
+                    .message(ex.getMessage())
+                    .build();
+    }
+
+    /**
+     * This is a method to catch Invalid JSchException exception
+     * @param ex JSchException.class
+     * @return Error Object {500, ex.getMessage()}
+     */
+    @ExceptionHandler(JSchException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public Error handlerJSchException(final JSchException ex) {
+        return Error.builder()
+                    .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                     .message(ex.getMessage())
                     .build();
     }

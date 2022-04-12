@@ -9,10 +9,14 @@ public class ConstantCommon {
     }
 
     // MESSAGE
+    public static final int SECTION_TIMEOUT = 3000;
+    public static final int CHANNEL_TIMEOUT = 3000;
     public static final String DELIMITER_CHARACTER = ", ";
     public static final String ADD_SUCCESSFULLY = "Add %s successfully.";
     public static final String UPDATE_SUCCESSFULLY = "Update %s successfully.";
     public static final String DELETE_SUCCESSFULLY = "Delete successfully.";
+    public static final String MANAGED_DEVICE = "Managed device.";
+    public static final String UNMANAGED_DEVICE = "Unmanaged device";
 
     // ERROR
     public static final String CONNECT_ERROR_MESSAGE = "Connection Refused: Connect.";

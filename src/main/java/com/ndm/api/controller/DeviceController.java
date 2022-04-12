@@ -1,5 +1,6 @@
 package com.ndm.api.controller;
 
+import com.jcraft.jsch.JSchException;
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.config.ApiPathConfig;
 import com.ndm.api.dto.*;
@@ -48,6 +49,24 @@ public class DeviceController {
             throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
         }
         return deviceService.findById(Integer.parseInt(request.getId()));
+    }
+
+    @GetMapping(ApiPathConfig.MANAGED_DEVICE_URL)
+    public Success managed(@Valid final DeviceRequest request, final BindingResult bindingResult) throws JSchException {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
+        }
+        deviceService.managed(Integer.parseInt(request.getId()));
+        return new Success(HttpStatus.OK.value(), ConstantCommon.MANAGED_DEVICE);
+    }
+
+    @GetMapping(ApiPathConfig.UNMANAGED_DEVICE_URL)
+    public Success unmanaged(@Valid final DeviceRequest request, final BindingResult bindingResult) throws JSchException {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
+        }
+        deviceService.unmanaged(Integer.parseInt(request.getId()));
+        return new Success(HttpStatus.OK.value(), ConstantCommon.UNMANAGED_DEVICE);
     }
 
     /**
