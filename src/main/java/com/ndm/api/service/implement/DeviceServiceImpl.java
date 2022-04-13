@@ -129,10 +129,9 @@ public class DeviceServiceImpl implements DeviceService {
         final Device device = deviceOptional.orElseThrow(()-> new DataNotFoundException(ConstantCommon.DEVICE_NOT_FOUND));
         final Optional<Credential> credentialOptional = credentialRepository.findCredentialByDeviceId(device.getId());
         final Credential credential = credentialOptional.orElseThrow(() -> new DataNotFoundException(ConstantCommon.CREDENTIAL_NOT_FOUND));
-        if (device.isOperational() == State.DISABLED.isState() && Objects.isNull(sshConnector)) {
+        if (device.isOperational() == State.DISABLED.isState() && sshConnector.isDisconnected()) {
             sshConnector = new SshConnector(credential, device);
             sshConnector.open();
-
             device.setOperational(State.ENABLED.isState());
             deviceRepository.save(device);
         }
@@ -143,8 +142,7 @@ public class DeviceServiceImpl implements DeviceService {
     public void unmanaged(final int id) {
         final Optional<Device> deviceOptional = deviceRepository.findById(id);
         final Device device = deviceOptional.orElseThrow(()-> new DataNotFoundException(ConstantCommon.DEVICE_NOT_FOUND));
-        if (device.isOperational() == State.ENABLED.isState() && Objects.nonNull(sshConnector)) {
-            sshConnector.close();
+        if (device.isOperational() == State.ENABLED.isState() && !sshConnector.isDisconnected()) {
             device.setOperational(State.DISABLED.isState());
             deviceRepository.save(device);
         }

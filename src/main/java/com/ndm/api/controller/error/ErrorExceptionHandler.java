@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
+
 /**
  * A class define ErrorExceptionHandler
  */
@@ -35,7 +37,7 @@ public class ErrorExceptionHandler {
     }
 
     /**
-     * This is a method to catch Invalid Data access exception
+     * This is a method to catch Data access exception
      * @return Error Object {500, "Connection Refused: Connect."}
      */
     @ExceptionHandler(DataAccessException.class)
@@ -79,7 +81,7 @@ public class ErrorExceptionHandler {
     }
 
     /**
-     * This is a method to catch Invalid duplicate exception
+     * This is a method to catch Duplicate exception
      * @param ex DuplicateException.class
      * @return Error Object {400, ex.getMessage()}
      */
@@ -94,7 +96,7 @@ public class ErrorExceptionHandler {
     }
 
     /**
-     * This is a method to catch Invalid JSchException exception
+     * This is a method to catch JSchException exception
      * @param ex JSchException.class
      * @return Error Object {500, ex.getMessage()}
      */
@@ -109,7 +111,37 @@ public class ErrorExceptionHandler {
     }
 
     /**
-     * This is a method to catch Invalid ndm exception
+     * This is a method to catch Interrupted exception
+     * @param ex InterruptedException
+     * @return Error Object {500, ex.getMessage()}
+     */
+    @ExceptionHandler(InterruptedException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public Error handlerInterruptedException(final InterruptedException ex) {
+        return Error.builder()
+                    .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message(ex.getMessage())
+                    .build();
+    }
+
+    /**
+     * This is a method to catch io exception
+     * @param ex IOException
+     * @return Error Object {500, ex.getMessage()}
+     */
+    @ExceptionHandler(IOException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public Error handlerIOException(final IOException ex) {
+        return Error.builder()
+                    .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message(ex.getMessage())
+                    .build();
+    }
+
+    /**
+     * This is a method to catch ndm exception
      * @return Error Object {500, "Internal Server Error."}
      */
     @ExceptionHandler(NdmException.class)
