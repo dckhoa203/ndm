@@ -1,6 +1,6 @@
 package com.ndm.api.service.implement;
 
-import com.jcraft.jsch.JSchException;
+import com.ndm.api.common.Command;
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.dto.DtoMapper;
 import com.ndm.api.dto.device.DeviceAddRequestBody;
@@ -16,10 +16,13 @@ import com.ndm.api.repository.DeviceRepository;
 import com.ndm.api.repository.NtpRepository;
 import com.ndm.api.service.DeviceService;
 import com.ndm.api.sshconnection.SshConnector;
+import com.ndm.api.sshconnection.SshResponse;
+import com.ndm.api.sshconnection.SshUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -32,7 +35,6 @@ public class DeviceServiceImpl implements DeviceService {
     private final CredentialRepository credentialRepository;
     private final NtpRepository ntpRepository;
     private final DtoMapper mapper;
-    private SshConnector sshConnector;
 
     @Autowired
     public DeviceServiceImpl(final DeviceRepository deviceRepository, final CredentialRepository credentialRepository, final NtpRepository ntpRepository, final DtoMapper mapper) {
@@ -124,14 +126,14 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     @Transactional
-    public void managed(final int id) throws JSchException {
+    public void managed(final int id) throws IOException {
         final Optional<Device> deviceOptional = deviceRepository.findById(id);
         final Device device = deviceOptional.orElseThrow(()-> new DataNotFoundException(ConstantCommon.DEVICE_NOT_FOUND));
         final Optional<Credential> credentialOptional = credentialRepository.findCredentialByDeviceId(device.getId());
         final Credential credential = credentialOptional.orElseThrow(() -> new DataNotFoundException(ConstantCommon.CREDENTIAL_NOT_FOUND));
-        if (device.isOperational() == State.DISABLED.isState() && sshConnector.isDisconnected()) {
-            sshConnector = new SshConnector(credential, device);
-            sshConnector.open();
+        final SshConnector connector = new SshConnector(credential.getUsername(), device.getIpAddress(), credential.getPassword(), device.getPort());
+        if (device.isOperational() == State.DISABLED.isState()) {
+            final SshResponse sshResponse = SshUtils.runCommand(connector, Command.SESSION_WRITE_LOCK, ConstantCommon.TIMEOUT);
             device.setOperational(State.ENABLED.isState());
             deviceRepository.save(device);
         }
@@ -142,7 +144,7 @@ public class DeviceServiceImpl implements DeviceService {
     public void unmanaged(final int id) {
         final Optional<Device> deviceOptional = deviceRepository.findById(id);
         final Device device = deviceOptional.orElseThrow(()-> new DataNotFoundException(ConstantCommon.DEVICE_NOT_FOUND));
-        if (device.isOperational() == State.ENABLED.isState() && !sshConnector.isDisconnected()) {
+        if (device.isOperational() == State.ENABLED.isState()) {
             device.setOperational(State.DISABLED.isState());
             deviceRepository.save(device);
         }

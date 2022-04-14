@@ -9,8 +9,7 @@ public class ConstantCommon {
     }
 
     // MESSAGE
-    public static final int SECTION_TIMEOUT = 3000;
-    public static final int CHANNEL_TIMEOUT = 3000;
+    public static final int TIMEOUT = 3000;
     public static final String DELIMITER_CHARACTER = ", ";
     public static final String ADD_SUCCESSFULLY = "Add %s successfully.";
     public static final String UPDATE_SUCCESSFULLY = "Update %s successfully.";
@@ -31,4 +30,5 @@ public class ConstantCommon {
     public static final String INTERFACE_NOT_FOUND = "Interface not found.";
     public static final String PORT_NOT_FOUND = "Port not found.";
     public static final String DUPLICATE_MAC_ADDRESS = "Duplicate mac address %s.";
+    public static final String SSH_TIMEOUT_MESSAGE = "Command '%s' on host '%s' timed out after %d seconds";
 }

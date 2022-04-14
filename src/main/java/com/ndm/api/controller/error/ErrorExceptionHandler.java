@@ -1,12 +1,8 @@
 package com.ndm.api.controller.error;
 
-import com.jcraft.jsch.JSchException;
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.dto.Error;
-import com.ndm.api.exception.DataNotFoundException;
-import com.ndm.api.exception.DuplicateException;
-import com.ndm.api.exception.InvalidParameterException;
-import com.ndm.api.exception.NdmException;
+import com.ndm.api.exception.*;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -96,31 +92,16 @@ public class ErrorExceptionHandler {
     }
 
     /**
-     * This is a method to catch JSchException exception
-     * @param ex JSchException.class
-     * @return Error Object {500, ex.getMessage()}
+     * This is a method to catch Ssh timeout exception
+     * @param ex SshTimeoutException
+     * @return Error Object {408, ex.getMessage()}
      */
-    @ExceptionHandler(JSchException.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(SshTimeoutException.class)
+    @ResponseStatus(value = HttpStatus.REQUEST_TIMEOUT)
     @ResponseBody
-    public Error handlerJSchException(final JSchException ex) {
+    public Error handlerSshTimeoutException(final SshTimeoutException ex) {
         return Error.builder()
-                    .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                    .message(ex.getMessage())
-                    .build();
-    }
-
-    /**
-     * This is a method to catch Interrupted exception
-     * @param ex InterruptedException
-     * @return Error Object {500, ex.getMessage()}
-     */
-    @ExceptionHandler(InterruptedException.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    @ResponseBody
-    public Error handlerInterruptedException(final InterruptedException ex) {
-        return Error.builder()
-                    .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .code(HttpStatus.REQUEST_TIMEOUT.value())
                     .message(ex.getMessage())
                     .build();
     }

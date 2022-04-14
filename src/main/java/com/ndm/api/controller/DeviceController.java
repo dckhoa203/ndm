@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -52,7 +53,7 @@ public class DeviceController {
     }
 
     @GetMapping(ApiPathConfig.MANAGED_DEVICE_URL)
-    public Success managed(@Valid final DeviceRequest request, final BindingResult bindingResult) throws JSchException {
+    public Success managed(@Valid final DeviceRequest request, final BindingResult bindingResult) throws IOException {
         if (bindingResult.hasErrors()) {
             throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
         }
