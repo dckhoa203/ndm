@@ -1,18 +1,21 @@
-package com.ndm.api.service;
+package com.ndm.api.service.implement;
 
 import com.ndm.api.common.ConstantCommon;
-import com.ndm.api.dto.credential.CredentialMapper;
+import com.ndm.api.dto.DtoMapper;
 import com.ndm.api.dto.credential.CredentialRequestBody;
+import com.ndm.api.dto.credential.CredentialResponse;
 import com.ndm.api.entity.Credential;
 import com.ndm.api.exception.DataNotFoundException;
 import com.ndm.api.exception.DuplicateException;
 import com.ndm.api.repository.CredentialRepository;
+import com.ndm.api.service.CredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.ndm.api.common.ConstantCommon.CREDENTIAL_NOT_FOUND;
 
@@ -23,22 +26,22 @@ import static com.ndm.api.common.ConstantCommon.CREDENTIAL_NOT_FOUND;
 public class CredentialServiceImpl implements CredentialService {
 
     private final CredentialRepository credentialRepository;
+    private final DtoMapper mapper;
 
     @Autowired
-    private CredentialMapper credentialMapper;
-
-    @Autowired
-    public CredentialServiceImpl(final CredentialRepository credentialRepository) {
+    public CredentialServiceImpl(final CredentialRepository credentialRepository, final DtoMapper mapper) {
         this.credentialRepository = credentialRepository;
+        this.mapper = mapper;
     }
 
     /**
      * This is the method of get all credential
-     * @return List<Credential>
+     * @return List<CredentialResponse>
      */
     @Override
-    public List<Credential> getAll() {
-        return credentialRepository.findAll();
+    public List<CredentialResponse> getAll() {
+        final List<Credential> credentials = credentialRepository.findAll();
+        return mapper.mapToCredentialResponseList(credentials);
     }
 
     /**
@@ -48,7 +51,7 @@ public class CredentialServiceImpl implements CredentialService {
     @Override
     @Transactional
     public void add(final CredentialRequestBody requestBody) {
-        final Credential credential = credentialMapper.mapToCredential(requestBody);
+        final Credential credential = mapper.mapToCredential(requestBody);
         if (credentialRepository.existsByName(credential.getName())) {
             throw new DuplicateException(String.format(ConstantCommon.DUPLICATE_NAME, credential.getName()));
         }
@@ -68,7 +71,7 @@ public class CredentialServiceImpl implements CredentialService {
     @Override
     @Transactional
     public void update(final int id, final CredentialRequestBody requestBody) {
-        final Credential credential = credentialMapper.mapToCredential(requestBody);
+        final Credential credential = mapper.mapToCredential(requestBody);
         credential.setId(id);
         final Credential newCredential = credentialRepository.getById(credential.getId());
         if (ObjectUtils.isEmpty(credential)) {
@@ -97,10 +100,8 @@ public class CredentialServiceImpl implements CredentialService {
     @Override
     @Transactional
     public void delete(final int id) {
-        final Credential credential = credentialRepository.getById(id);
-        if (ObjectUtils.isEmpty(credential)) {
-            throw new DataNotFoundException(CREDENTIAL_NOT_FOUND);
-        }
+        final Optional<Credential> credentialOptional = credentialRepository.findById(id);
+        final Credential credential = credentialOptional.orElseThrow(() -> new DataNotFoundException(CREDENTIAL_NOT_FOUND));
         credentialRepository.delete(credential);
     }
 }

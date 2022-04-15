@@ -1,11 +1,12 @@
 package com.ndm.api.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum DeviceType {
     GT(1), GX(2);
 
-    private int type;
-
-    DeviceType(final int type){
-        this.type = type;
-    }
+    private final int type;
 }

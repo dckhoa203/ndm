@@ -44,8 +44,8 @@ public class Device {
     private Integer type;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ntp_id", nullable = false)
-    private Ntp ntp;
+    @JoinColumn(name = "ntp_client_id", nullable = false)
+    private NtpClient ntpClient;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "device_id", nullable = false)
@@ -54,4 +54,10 @@ public class Device {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "device_id", nullable = false)
     private List<Port> ports;
+
+    @ManyToMany()
+    @JoinTable(name = "device_ntp_server",
+               joinColumns = @JoinColumn(name = "device_id", nullable = false),
+               inverseJoinColumns = @JoinColumn(name = "ntp_server_id", nullable = false))
+    private List<NtpServer> ntpServers;
 }

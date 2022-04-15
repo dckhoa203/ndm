@@ -1,11 +1,10 @@
 package com.ndm.api.controller;
 
+import com.jcraft.jsch.JSchException;
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.config.ApiPathConfig;
 import com.ndm.api.dto.*;
 import com.ndm.api.dto.device.*;
-import com.ndm.api.dto.device.DeviceListResponse.DeviceResponse;
-import com.ndm.api.entity.Device;
 import com.ndm.api.exception.InvalidParameterException;
 import com.ndm.api.service.DeviceService;
 import com.ndm.api.util.Utils;
@@ -15,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,21 +23,19 @@ import java.util.List;
 @RestController
 public class DeviceController {
     private final DeviceService deviceService;
-    private final DeviceMapper deviceMapper;
 
     @Autowired
-    public DeviceController(final DeviceService deviceService, final DeviceMapper deviceMapper) {
+    public DeviceController(final DeviceService deviceService) {
         this.deviceService = deviceService;
-        this.deviceMapper = deviceMapper;
     }
 
     /**
      * This is a method to get all device
-     * @return DeviceListResponse
+     * @return List<DeviceResponse>
      */
     @GetMapping(ApiPathConfig.GET_ALL_DEVICE_URL)
-    public DeviceListResponse getAll() {
-        return deviceMapper.mapToDeviceListResponse(deviceService.getAll());
+    public List<DeviceResponse> getAll() {
+        return deviceService.getAll();
     }
 
     /**
@@ -51,10 +49,26 @@ public class DeviceController {
         if (bindingResult.hasErrors()) {
             throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
         }
-        final Device device = deviceService.findById(Integer.parseInt(request.getId()));
-        return deviceMapper.mapToDeviceResponse(device);
+        return deviceService.findById(Integer.parseInt(request.getId()));
     }
 
+    @GetMapping(ApiPathConfig.MANAGED_DEVICE_URL)
+    public Success managed(@Valid final DeviceRequest request, final BindingResult bindingResult) throws IOException {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
+        }
+        deviceService.managed(Integer.parseInt(request.getId()));
+        return new Success(HttpStatus.OK.value(), ConstantCommon.MANAGED_DEVICE);
+    }
+
+    @GetMapping(ApiPathConfig.UNMANAGED_DEVICE_URL)
+    public Success unmanaged(@Valid final DeviceRequest request, final BindingResult bindingResult) throws JSchException {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
+        }
+        deviceService.unmanaged(Integer.parseInt(request.getId()));
+        return new Success(HttpStatus.OK.value(), ConstantCommon.UNMANAGED_DEVICE);
+    }
 
     /**
      * This is a method to search device by ip address
@@ -67,23 +81,21 @@ public class DeviceController {
         if (bindingResult.hasErrors()) {
             throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
         }
-        final Device device = deviceService.getByIpAddress(request.getIpAddress());
-        return deviceMapper.mapToDeviceResponse(device);
+        return deviceService.getByIpAddress(request.getIpAddress());
     }
 
     /**
      * This is a method to get device by type
      * @param request DeviceGetByTypeRequest
      * @param bindingResult BindingResult
-     * @return DeviceListResponse
+     * @return List<DeviceResponse>
      */
     @GetMapping(ApiPathConfig.GET_DEVICE_BY_TYPE_URL)
-    public DeviceListResponse getByType(@Valid final DeviceGetByTypeRequest request, final BindingResult bindingResult) {
+    public List<DeviceResponse> getByType(@Valid final DeviceGetByTypeRequest request, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
         }
-        final List<Device> devices = deviceService.getByType(Integer.parseInt(request.getType()));
-        return deviceMapper.mapToDeviceListResponse(devices);
+        return deviceService.getByType(Integer.parseInt(request.getType()));
     }
 
     /**

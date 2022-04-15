@@ -1,10 +1,9 @@
 package com.ndm.api.controller;
 
 import com.ndm.api.config.ApiPathConfig;
-import com.ndm.api.dto.ntp.*;
-import com.ndm.api.entity.Ntp;
+import com.ndm.api.dto.ntpclient.*;
 import com.ndm.api.exception.InvalidParameterException;
-import com.ndm.api.service.NtpService;
+import com.ndm.api.service.NtpClientService;
 import com.ndm.api.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;;
@@ -17,15 +16,12 @@ import javax.validation.Valid;
  * This NtpController class to define all api related to Ntp
  */
 @RestController
-public class NtpController {
-
-    private final NtpService ntpService;
-    private final NtpMapper ntpMapper;
+public class NtpClientController {
+    private final NtpClientService ntpClientService;
 
     @Autowired
-    public NtpController(final NtpService ntpService, final NtpMapper ntpMapper) {
-        this.ntpService = ntpService;
-        this.ntpMapper = ntpMapper;
+    public NtpClientController(final NtpClientService ntpClientService) {
+        this.ntpClientService = ntpClientService;
     }
 
     /**
@@ -39,7 +35,6 @@ public class NtpController {
         if (bindingResult.hasErrors()) {
             throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
         }
-        final Ntp ntp = ntpService.getByDeviceId(Integer.parseInt(request.getDeviceId()));
-        return ntpMapper.mapToNtpResponse(ntp);
+        return ntpClientService.getByDeviceId(Integer.parseInt(request.getDeviceId()));
     }
 }
