@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NtpServerRepository extends JpaRepository<NtpServer, Integer> {
     boolean existsByIpAddress(final String ipAddress);
+    NtpServer getByIpAddress(final String ipAddress);
+    NtpServer getByClockName(final String clockName);
 }

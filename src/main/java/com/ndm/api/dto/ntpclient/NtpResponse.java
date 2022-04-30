@@ -1,5 +1,6 @@
-package com.ndm.api.dto.ntp;
+package com.ndm.api.dto.ntpclient;
 
+import com.ndm.api.dto.ntpserver.NtpServerResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,13 +21,4 @@ public class NtpResponse {
     private int timeInterval;
     private int numberMessages;
     private List<NtpServerResponse> ntpServers;
-
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Data
-    public static class NtpServerResponse {
-        private String clockName;
-        private String ipAddress;
-        private boolean state;
-    }
 }

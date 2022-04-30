@@ -1,12 +1,12 @@
 package com.ndm.api.service;
 
 import com.ndm.api.dto.port.PortAddRequestBody;
-import com.ndm.api.entity.Port;
+import com.ndm.api.dto.port.PortResponse;
 
 import java.util.List;
 
 public interface PortService {
-    List<Port> getAllByDeviceId(final int deviceId);
-    void addToDevice(final PortAddRequestBody requestBody);
+    List<PortResponse> getAll(final int deviceId);
+    void add(final PortAddRequestBody requestBody);
     void delete(final int id);
 }
