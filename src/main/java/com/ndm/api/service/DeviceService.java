@@ -1,6 +1,5 @@
 package com.ndm.api.service;
 
-import com.jcraft.jsch.JSchException;
 import com.ndm.api.dto.device.DeviceAddRequestBody;
 import com.ndm.api.dto.device.DeviceResponse;
 

@@ -1,6 +1,5 @@
 package com.ndm.api.controller;
 
-import com.jcraft.jsch.JSchException;
 import com.ndm.api.common.ConstantCommon;
 import com.ndm.api.config.ApiPathConfig;
 import com.ndm.api.dto.*;
@@ -62,7 +61,7 @@ public class DeviceController {
     }
 
     @GetMapping(ApiPathConfig.UNMANAGED_DEVICE_URL)
-    public Success unmanaged(@Valid final DeviceRequest request, final BindingResult bindingResult) throws JSchException {
+    public Success unmanaged(@Valid final DeviceRequest request, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InvalidParameterException(Utils.getErrorMessage(bindingResult));
         }
